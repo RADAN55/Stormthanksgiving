@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Storm Board — Thanksgiving Around the World</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fff6e6;--orange:#e8912d;--orange-soft:#fde3bf;--red:#b93a2a;--brown:#5b3a1e;--green:#2f6f3e;--green-soft:#dff0e2;--gold:#f2b644;--ink:#2b1d12;--muted:#7a6552;--shadow:0 6px 18px rgba(91,58,30,.14)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--cream);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:18px;line-height:1.45}
+button{font-family:inherit;cursor:pointer}
+header{background:linear-gradient(135deg,#7a3b1e,#b93a2a 55%,#e8912d);color:#fff;padding:14px 22px}
+.hwrap{max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+h1{margin:0;font-size:1.7rem;font-weight:900}h1 small{display:block;font-size:.85rem;font-weight:700;opacity:.9}
+.days{display:flex;gap:6px;background:rgba(255,255,255,.18);padding:4px;border-radius:999px}
+.days button{border:0;background:transparent;color:#fff;font-weight:800;padding:8px 16px;border-radius:999px;font-size:1rem}.days button.on{background:#fff;color:var(--red)}
+.clock{font-weight:900;font-size:1.3rem;font-variant-numeric:tabular-nums}
+main{max-width:1400px;margin:0 auto;padding:18px 18px 40px}
+.eq{background:#fff;border-left:10px solid var(--gold);border-radius:14px;padding:14px 20px;box-shadow:var(--shadow);margin-bottom:16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.eq b{color:var(--red);font-size:.9rem;letter-spacing:1px;text-transform:uppercase}.eq .q{font-size:1.45rem;font-weight:800}.eq .es{font-size:1rem;color:var(--muted);font-style:italic}
+.cols{display:grid;grid-template-columns:1.15fr 1fr;gap:16px}@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:16px 20px;margin-bottom:16px}
+h2{margin:0 0 10px;color:var(--red);font-size:1.25rem;font-weight:900;display:flex;justify-content:space-between;align-items:center;gap:8px}
+h3{margin:12px 0 6px;color:var(--brown);font-size:1rem;font-weight:900;text-transform:uppercase;letter-spacing:.6px}
+.step{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:start;padding:10px 12px;border:2px solid var(--orange-soft);border-radius:12px;margin:8px 0;background:#fffdf8}
+.step.done{opacity:.55;background:var(--green-soft);border-color:var(--green)}.step.now{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-soft)}
+.step input{width:24px;height:24px;margin-top:4px}
+.step .t{font-weight:800;font-size:1.05rem}.step .d{font-size:.95rem;color:var(--muted)}.step .d a{color:var(--green);font-weight:800;text-decoration:none}
+.step .dom{display:inline-block;font-size:.72rem;background:var(--orange-soft);color:var(--brown);border-radius:999px;padding:1px 8px;margin-left:6px;font-weight:800}
+.mins{text-align:right;font-weight:900;color:var(--brown)}.mins button{display:block;margin-top:4px;border:0;background:var(--orange);color:#fff;border-radius:8px;padding:4px 10px;font-weight:800;font-size:.8rem}
+.timer{display:flex;align-items:center;gap:12px;background:var(--brown);color:#fff;border-radius:14px;padding:10px 16px;margin-bottom:10px}
+.timer .big{font-size:2.4rem;font-weight:900;font-variant-numeric:tabular-nums;min-width:140px}.timer button{border:0;background:var(--gold);color:var(--brown);border-radius:8px;padding:6px 12px;font-weight:900}
+.timer.warn .big{color:#ffd166}.timer.over .big{color:#ff8a80;animation:blink 1s infinite}@keyframes blink{50%{opacity:.4}}
+.post p{margin:6px 0}.post b{color:var(--brown)}
+.pill{display:inline-block;background:var(--orange-soft);color:var(--brown);border-radius:999px;padding:2px 10px;font-size:.82rem;font-weight:800;margin:2px 3px 2px 0}.pill.g{background:var(--green-soft);color:var(--green)}
+.cando{border-left:5px solid var(--green);padding:4px 10px;margin:4px 0;font-size:.95rem}.cando b{color:var(--green)}
+.vocab{display:flex;flex-wrap:wrap;gap:8px}.vocab span{background:var(--gold);color:var(--brown);border-radius:10px;padding:6px 12px;font-weight:900}.vocab span small{display:block;font-weight:600;font-size:.75rem}
+.bell{background:#fff9e8;border:2px dashed var(--gold);border-radius:12px;padding:10px 14px;font-size:1.05rem}
+.trail{position:relative;background:linear-gradient(#fff9ee,#fde3bf);border-radius:16px;overflow:hidden}
+.trail svg{width:100%;height:auto;display:block}
+.leaf{cursor:pointer;transition:transform .15s}.leaf:hover{transform:scale(1.15)}
+.trailform{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.trailform input{font-family:inherit;font-size:1rem;border:2px solid var(--orange-soft);border-radius:10px;padding:8px 10px}
+.trailform input.txt{flex:1;min-width:220px}
+.btn{border:0;background:var(--orange);color:#fff;font-weight:900;padding:9px 16px;border-radius:12px;font-size:.95rem;box-shadow:0 3px 0 #b86d16}.btn.sec{background:#fff;color:var(--brown);border:2px solid var(--orange-soft);box-shadow:none}.btn.sm{padding:5px 10px;font-size:.82rem}
+.bubble{position:absolute;background:#fff;border:3px solid var(--brown);border-radius:14px;padding:8px 12px;max-width:260px;font-weight:700;box-shadow:var(--shadow);pointer-events:none;display:none;z-index:3}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--brown);color:#fff;padding:10px 18px;border-radius:999px;font-weight:800;opacity:0;transition:opacity .3s;z-index:9}.toast.on{opacity:1}
+.list{columns:2;column-gap:20px;font-size:.95rem}.list div{break-inside:avoid;padding:3px 0;border-bottom:1px dotted #eadcc8}
+.confirm{display:none;background:#fde4df;border:2px solid var(--red);border-radius:10px;padding:8px 12px;margin-top:8px}
+.note{font-size:.88rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="hwrap">
+ <h1>🦃 Storm Board · Thanksgiving Around the World<small>Grades 9–12 EL · Laurel High School · Storm Studio</small></h1>
+ <div class="days" id="days"></div>
+ <div class="clock" id="clock"></div>
+</div></header>
+<main>
+ <div class="eq"><div><b>Essential question</b><div class="q" id="eq"></div><div class="es" id="eqes"></div></div></div>
+ <div class="cols">
+  <div>
+   <div class="card">
+    <h2><span id="dayTitle"></span><span class="note" id="dayDate"></span></h2>
+    <div class="timer" id="timer"><div class="big" id="tDisp">00:00</div><button onclick="tStart()">▶ Start</button><button onclick="tPause()">⏸</button><button onclick="tSet(5)">5</button><button onclick="tSet(10)">10</button><button onclick="tSet(15)">15</button><button onclick="tReset()">↺</button></div>
+    <div id="steps"></div>
+   </div>
+   <div class="card"><h2>🔔 Bell ringer</h2><div class="bell" id="bell"></div>
+    <h3>Exit ticket</h3><div class="bell" id="exit"></div></div>
+  </div>
+  <div>
+   <div class="card post">
+    <h2>📌 Posted for today</h2>
+    <p><b>Content objective:</b> <span id="co"></span></p>
+    <p><b>Language objective:</b> <span id="lo"></span></p>
+    <h3>MS CCRS ELA</h3><div id="ela"></div>
+    <h3>MS ELP / ELPA21</h3><div id="elp"></div>
+    <h3>Can-do statements</h3><div id="cando"></div>
+    <h3>Words of the day</h3><div class="vocab" id="words"></div>
+   </div>
+  </div>
+ </div>
+ <div class="card">
+  <h2>🍂 Gratitude Trail <span class="note" id="trailCount"></span></h2>
+  <p class="note">Each leaf is something our class is thankful for. Add one at the end of class; tap a leaf to read it. The trail keeps growing all week. <i>Cada hoja es algo por lo que nuestra clase está agradecida.</i></p>
+  <div class="trailform"><input id="gName" placeholder="Name (optional)" maxlength="24"><input id="gText" class="txt" placeholder="I am thankful for... / Estoy agradecido por..." maxlength="90"><button class="btn" onclick="addLeaf()">Add my leaf 🍁</button><button class="btn sec sm" onclick="toggleList()">Show list</button><button class="btn sec sm" onclick="copyList()">Copy list</button><button class="btn sec sm" onclick="askClear()">Clear trail</button></div>
+  <div class="confirm" id="confirm">Clear every leaf on the trail? <button class="btn sm" onclick="doClear()">Yes, clear</button> <button class="btn sec sm" onclick="document.getElementById('confirm').style.display='none'">No</button></div>
+  <div class="trail" id="trail"></div>
+  <div class="list" id="glist" style="display:none;margin-top:10px"></div>
+ </div>
+ <p class="note">Module: <a href="https://radan55.github.io/Stormthanksgiving/" style="color:var(--green);font-weight:800">radan55.github.io/Stormthanksgiving</a> · Conversation cards and vocabulary GIF/video go with Day 1.</p>
+</main>
+<div class="bubble" id="bubble"></div><div class="toast" id="toast"></div>
+<script>
+const MOD="https://radan55.github.io/Stormthanksgiving/";
+const EQ={q:"Why do people around the world give thanks, and how are their celebrations alike and different?",es:"¿Por qué la gente de todo el mundo da gracias y en qué se parecen y se diferencian sus celebraciones?"};
+const DAYS=[
+ {title:"Day 1 · Words & the World",co:"Students will learn 12 key words about harvest and gratitude holidays and describe how two countries celebrate a day of thanks.",lo:"Students will say and write definitions and example sentences, then answer questions about a text using 'The text says…'.",
+  ela:["L.9-10.4 Word meaning","L.9-10.6 Academic vocabulary","RI.9-10.1 Cite evidence"],elp:["ELP 1 Construct meaning from text","ELP 3 Speak and write about texts","ELP 8 Determine word meaning"],
+  words:[["harvest","cosecha"],["gratitude","gratitud"],["tradition","tradición"],["feast","banquete"]],
+  bell:"Turn and talk (2 min): What is one holiday your family celebrates? Say the name, the month, and one food. Frame: <b>My family celebrates ____ in ____. We eat ____.</b>",
+  exit:"Write one new fact you learned about a country today. Frame: <b>In ____, people ____ on ____.</b>",
+  steps:[["Launch + essential question","Read the EQ together; preview can-dos; Spanish toggle on for Emerging lane.",10,"Speaking",""],["Vocabulary flashcards + matching","Flip, listen, repeat; finish the matching game with a partner.",25,"Reading",MOD+"#l1"],["Say it with the cards","Conversation cards (Emerging set) — Quiz-Quiz-Trade, 3 rounds.",15,"Speaking",""],["Around the World: United States + Puerto Rico","Whole class: read, listen, answer. 'The text says…'",20,"Reading",MOD+"#l2"],["Choose 2 more countries","Independent on Chromebooks; green border = done.",15,"Reading",MOD+"#l2"],["Gratitude Trail + exit ticket","Each student adds a leaf; exit ticket on paper.",5,"Writing",""]]},
+ {title:"Day 2 · Compare & Contrast",co:"Students will compare and contrast two celebrations and identify what most harvest holidays have in common.",lo:"Students will use comparison language (both, while, however, similar, different) in speech and writing and complete ELPA21-style reading items.",
+  ela:["RI.9-10.9 Analyze related texts","W.9-10.2 Informative writing","SL.9-10.1 Discussion"],elp:["ELP 4 Claims with evidence","ELP 7 Adapt language choices","ELP 9 Coherent speech"],
+  words:[["celebrate","celebrar"],["ancestor","antepasado"],["gather","reunirse"],["custom","costumbre"]],
+  bell:"Quick draw (3 min): Draw one vocabulary word from yesterday. Your partner guesses the word in English, then says it in Spanish.",
+  exit:"ELPA21 Reading practice score + one sentence: <b>____ and ____ are similar because both ____.</b>",
+  steps:[["Bell ringer + review","Quick-draw vocabulary; re-read EQ.",10,"Speaking",""],["Finish countries","2+ more countries (Challenge lane: all nine).",25,"Reading",MOD+"#l2"],["Same or Different? sort","Part A sort, then Part B comparison table with a partner.",20,"Writing",MOD+"#l3"],["Talk it out","Conversation cards (Progressing set) — Talking Chips in groups of 4.",15,"Speaking",""],["ELPA21 Reading practice","8 test-format items; submit and review.",15,"Reading",MOD+"#elpa"],["Gratitude Trail + exit ticket","Add a leaf; exit sentence.",5,"Writing",""]]},
+ {title:"Day 3 · Listen, Speak, Write",co:"Students will understand a personal narrative about two holidays and write a comparison of two days of thanks using evidence from the readings.",lo:"Students will listen for key details, interview a partner using past tense, and write an organized paragraph with transition words and 4+ vocabulary words.",
+  ela:["SL.9-10.2 Integrate oral information","W.9-10.2 Informative writing","W.9-10.9 Evidence from texts"],elp:["ELP 1 Oral presentations","ELP 2 Oral exchanges","ELP 9 Coherent writing","ELP 10 Conventions"],
+  words:[["ceremony","ceremonia"],["lunar calendar","calendario lunar"],["symbol","símbolo"],["community","comunidad"]],
+  bell:"Listen (2 min): Teacher reads three sentences about Chuseok. Write the three key words you hear.",
+  exit:"Quiz score + reflection: <b>One tradition I would add to my family's celebration is ____ because ____.</b>",
+  steps:[["Bell ringer","Listening warm-up; posture for the listening task.",5,"Listening",""],["Listening passage (2 plays) + questions","Min-ji's two holidays; answer 5 items.",15,"Listening",MOD+"#l4"],["Partner interview","Inside-Outside Circle with Challenge cards; report back.",15,"Speaking",MOD+"#l4"],["Writing: Two Days of Thanks","Frames by lane; checklist; copy into Google Classroom.",30,"Writing",MOD+"#l5"],["ELPA21 Writing task (Edit a Text + Email)","Self-score with the 0–4 guide.",15,"Writing",MOD+"#elpa"],["Quiz + Gratitude Trail","10-question quiz; last leaves on the trail; celebrate!",10,"Reading",MOD+"#quiz"]]},
+];
+const CANDO={Emerging:"I can name three countries with a day of thanks and say one food and one tradition for each, using sentence frames and my word list.",Progressing:"I can read a short informational text about a holiday, answer questions with evidence, and compare two celebrations in a paragraph with transition words.",Challenge:"I can analyze how a tradition changes when it moves to a new country and write a multi-paragraph comparison with academic vocabulary and evidence from two texts."};
+let S={day:0,done:{},leaves:[]}; try{ Object.assign(S, JSON.parse(localStorage.getItem("storm-tg-board")||"{}")); }catch(e){}
+function save(){ try{ localStorage.setItem("storm-tg-board", JSON.stringify(S)); }catch(e){} }
+function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("on"); setTimeout(()=>t.classList.remove("on"),1800); }
+
+document.getElementById("eq").textContent=EQ.q; document.getElementById("eqes").textContent=EQ.es;
+function renderDays(){ document.getElementById("days").innerHTML=DAYS.map((d,i)=>`<button class="${i===S.day?"on":""}" onclick="S.day=${i};save();render()">Day ${i+1}</button>`).join(""); }
+function render(){
+  renderDays(); const d=DAYS[S.day]; const done=S.done[S.day]||{};
+  document.getElementById("dayTitle").textContent=d.title;
+  const total=d.steps.reduce((a,s)=>a+s[2],0); document.getElementById("dayDate").textContent=`${total} min · ${new Date().toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})}`;
+  let firstOpen=d.steps.findIndex((s,i)=>!done[i]);
+  document.getElementById("steps").innerHTML=d.steps.map((s,i)=>`<div class="step ${done[i]?"done":""} ${i===firstOpen?"now":""}"><input type="checkbox" ${done[i]?"checked":""} onchange="S.done[${S.day}]=S.done[${S.day}]||{};S.done[${S.day}][${i}]=this.checked;save();render()">
+   <div><div class="t">${i+1}. ${s[0]}<span class="dom">${s[3]}</span></div><div class="d">${s[1]} ${s[4]?`<a href="${s[4]}" target="_blank" rel="noopener">Open ↗</a>`:""}</div></div>
+   <div class="mins">${s[2]} min<button onclick="tSet(${s[2]});tStart()">⏱ Start</button></div></div>`).join("");
+  document.getElementById("co").textContent=d.co; document.getElementById("lo").textContent=d.lo;
+  document.getElementById("ela").innerHTML=d.ela.map(x=>`<span class="pill">${x}</span>`).join(""); document.getElementById("elp").innerHTML=d.elp.map(x=>`<span class="pill g">${x}</span>`).join("");
+  document.getElementById("cando").innerHTML=Object.entries(CANDO).map(([k,v])=>`<div class="cando"><b>${k}:</b> ${v}</div>`).join("");
+  document.getElementById("words").innerHTML=d.words.map(w=>`<span>${w[0]}<small>${w[1]}</small></span>`).join("");
+  document.getElementById("bell").innerHTML=d.bell; document.getElementById("exit").innerHTML=d.exit;
+}
+// clock + timer
+setInterval(()=>{ document.getElementById("clock").textContent=new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"}); },1000);
+let tLeft=0,tInt=null; function tDisp(){ const m=Math.floor(Math.abs(tLeft)/60),s=Math.abs(tLeft)%60; document.getElementById("tDisp").textContent=(tLeft<0?"-":"")+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0"); const el=document.getElementById("timer"); el.classList.toggle("warn",tLeft>0&&tLeft<=60); el.classList.toggle("over",tLeft<=0&&tInt!==null); }
+function tSet(min){ tLeft=min*60; tDisp(); } function tStart(){ if(tInt) return; if(tLeft<=0) return; tInt=setInterval(()=>{ tLeft--; tDisp(); if(tLeft===0){ try{ beep(); }catch(e){} } },1000); } function tPause(){ clearInterval(tInt); tInt=null; } function tReset(){ tPause(); tLeft=0; tDisp(); }
+function beep(){ const ac=new (window.AudioContext||window.webkitAudioContext)(); [0,0.25,0.5].forEach(t=>{ const o=ac.createOscillator(),g=ac.createGain(); o.frequency.value=880; o.connect(g); g.connect(ac.destination); g.gain.setValueAtTime(0.2,ac.currentTime+t); g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+t+0.2); o.start(ac.currentTime+t); o.stop(ac.currentTime+t+0.2); }); }
+
+// Gratitude Trail
+const LEAFC=["#c43c24","#e8912d","#f2b644","#8a4b1f","#d4652a","#b23a3a"];
+function pathPoint(t){ // winding path across a 1000x360 canvas
+  const x=40+t*920; const y=180+120*Math.sin(t*Math.PI*2.2)+30*Math.sin(t*Math.PI*7); return [x,y]; }
+function leafSVG(x,y,size,color,rot,i){ return `<g class="leaf" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot})" data-i="${i}"><path d="M0 ${-size} C ${size*0.9} ${-size*0.6} ${size*0.9} ${size*0.6} 0 ${size} C ${-size*0.9} ${size*0.6} ${-size*0.9} ${-size*0.6} 0 ${-size} Z" fill="${color}" stroke="#4a2612" stroke-width="2"/><line x1="0" y1="${-size*0.8}" x2="0" y2="${size*1.3}" stroke="#4a2612" stroke-width="2"/></g>`; }
+function renderTrail(){
+  const n=S.leaves.length; const cap=Math.max(40,n+10);
+  let d="M"; for(let i=0;i<=100;i++){ const [x,y]=pathPoint(i/100); d+=(i?" L":"")+x.toFixed(1)+" "+y.toFixed(1); }
+  const stones=[]; for(let i=0;i<=24;i++){ const [x,y]=pathPoint(i/24); stones.push(`<ellipse cx="${x.toFixed(1)}" cy="${(y+6).toFixed(1)}" rx="18" ry="9" fill="#d9c4a6" stroke="#b89a76" stroke-width="1.5"/>`); }
+  const leaves=S.leaves.map((l,i)=>{ const t=(i+0.5)/cap; const [x,y]=pathPoint(t); const side=i%2?1:-1; const r=(i*53)%360; return leafSVG(x,y-36*side+(i%3)*4,16+(i%3)*2,LEAFC[i%LEAFC.length],r,i); }).join("");
+  document.getElementById("trail").innerHTML=`<svg viewBox="0 0 1000 360" xmlns="http://www.w3.org/2000/svg"><path d="${d}" fill="none" stroke="#c9a77e" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#e7d2b4" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>${stones.join("")}
+   <text x="40" y="40" font-size="20" font-weight="800" fill="#5b3a1e">START · We are thankful for…</text><text x="960" y="40" text-anchor="end" font-size="20" font-weight="800" fill="#5b3a1e">🦃 Thanksgiving</text>${leaves}
+   ${n===0?`<text x="500" y="200" text-anchor="middle" font-size="22" fill="#8a6240" font-weight="700">Add the first leaf to start the trail 🍁</text>`:""}</svg>`;
+  document.getElementById("trailCount").textContent=`${n} leaf${n===1?"":"s"}`;
+  document.querySelectorAll(".leaf").forEach(g=>{ g.onclick=e=>showBubble(e,+g.dataset.i); });
+  renderList();
+}
+function showBubble(e,i){ const b=document.getElementById("bubble"); const l=S.leaves[i]; b.innerHTML=`🍁 ${l.t}${l.n?`<div style="font-size:.8rem;color:#7a6552">— ${l.n}</div>`:""}`; b.style.display="block"; b.style.left=Math.min(window.innerWidth-280,e.pageX+12)+"px"; b.style.top=(e.pageY-10)+"px"; clearTimeout(b._t); b._t=setTimeout(()=>b.style.display="none",4000); }
+function addLeaf(){ const t=document.getElementById("gText").value.trim(); const n=document.getElementById("gName").value.trim(); if(!t){ toast("Write what you are thankful for first"); return; } S.leaves.push({t,n,d:Date.now()}); save(); document.getElementById("gText").value=""; renderTrail(); toast("Leaf added 🍁"); }
+function renderList(){ document.getElementById("glist").innerHTML=S.leaves.map((l,i)=>`<div>${i+1}. ${l.t}${l.n?` <span class="note">— ${l.n}</span>`:""}</div>`).join("")||"<div class='note'>No leaves yet.</div>"; }
+function toggleList(){ const g=document.getElementById("glist"); g.style.display=g.style.display==="none"?"block":"none"; }
+function copyList(){ const txt=S.leaves.map((l,i)=>`${i+1}. ${l.t}${l.n?" — "+l.n:""}`).join("\n"); try{ navigator.clipboard.writeText(txt).then(()=>toast("Copied")).catch(()=>toast("Could not copy on this device")); }catch(e){ toast("Could not copy on this device"); } }
+function askClear(){ document.getElementById("confirm").style.display="block"; }
+function doClear(){ S.leaves=[]; save(); document.getElementById("confirm").style.display="none"; renderTrail(); }
+document.getElementById("gText").addEventListener("keydown",e=>{ if(e.key==="Enter") addLeaf(); });
+render(); renderTrail(); tDisp();
+</script>
+</body>
+</html>

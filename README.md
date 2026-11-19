@@ -2,7 +2,9 @@
 
 A single-file, Chromebook-friendly module for English learners, built under the **Storm Studio** model at Laurel High School (Laurel, MS). Open `index.html` or the GitHub Pages address — no installation, no accounts.
 
-**Live:** https://radan55.github.io/Stormthanksgiving/
+**Live module:** https://radan55.github.io/Stormthanksgiving/  
+**Storm Board (agenda + Gratitude Trail):** https://radan55.github.io/Stormthanksgiving/board.html  
+**Conversation cards (PDF, B&W):** [thanksgiving_conversation_cards.pdf](thanksgiving_conversation_cards.pdf)
 
 ## What's inside
 | Tab | Activity |
@@ -18,6 +20,9 @@ A single-file, Chromebook-friendly module for English learners, built under the 
 | Color | Three color-by-number scenes with a bilingual color key |
 | Quiz | 10 auto-graded questions |
 | Teacher | Content/language objectives, MS ELP (ELPA21) + MS CCRS ELA standards, can-dos, 3-day × 90-minute pacing, differentiation, rubric, answer keys |
+
+## Storm Board
+`board.html` is the projector agenda for the 3-day plan: Day 1–3 selector, timed steps with a countdown (links open the matching module tab), bell ringer and exit ticket, the posting block (content/language objectives, MS CCRS ELA, MS ELP/ELPA21, can-dos by lane, words of the day), and the **Gratitude Trail** — a winding path where every entry becomes a leaf; it persists on the device that projects it.
 
 ## Features
 - **Support level switch** — Emerging (ELPA21 L1–2), Progressing (L3–4), Challenge (L4–5) changes every reading, frame, and target.
