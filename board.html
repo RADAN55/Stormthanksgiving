@@ -113,6 +113,12 @@ const DAYS=[
   bell:"Listen (2 min): Teacher reads three sentences about Chuseok. Write the three key words you hear.",
   exit:"Quiz score + reflection: <b>One tradition I would add to my family's celebration is ____ because ____.</b>",
   steps:[["Bell ringer","Listening warm-up; posture for the listening task.",5,"Listening",""],["Listening passage (2 plays) + questions","Min-ji's two holidays; answer 5 items.",15,"Listening",MOD+"#l4"],["Partner interview","Inside-Outside Circle with Challenge cards; report back.",15,"Speaking",MOD+"#l4"],["Writing: Two Days of Thanks","Frames by lane; checklist; copy into Google Classroom.",30,"Writing",MOD+"#l5"],["ELPA21 Writing task (Edit a Text + Email)","Self-score with the 0–4 guide.",15,"Writing",MOD+"#elpa"],["Quiz + Gratitude Trail","10-question quiz; last leaves on the trail; celebrate!",10,"Reading",MOD+"#quiz"]]},
+ {title:"Friday · Feast Day (Nov 20)",co:"Students will review the vocabulary and the nine celebrations and express gratitude orally and in writing before the Thanksgiving break.",lo:"Students will use at least four target words in complete sentences while playing, asking follow-up questions, and writing a thank-you message.",
+  ela:["SL.9-10.1 Discussion","W.9-10.4 Clear writing for a purpose","L.9-10.6 Academic vocabulary"],elp:["ELP 2 Oral exchanges","ELP 3 Speak and write about topics","ELP 9 Coherent speech and writing"],
+  words:[["gratitude","gratitud"],["feast","banquete"],["gather","reunirse"],["community","comunidad"]],
+  bell:"Vocabulary video on the board (3 min) while students enter. Then: write the 4 words of the day in your notebook with a check ✔ next to the ones you can define without looking.",
+  exit:"Thank-you card (ELPA21 Writing: email/letter). Frame: <b>Dear ____, thank you for ____. Because of you, ____. Happy Thanksgiving! From, ____.</b> Hand it to the person or leave it with me to deliver.",
+  steps:[["Bell ringer + words of the day","Vocabulary flashcard video; self-check the four words.",8,"Listening",""],["Quiz-Quiz-Trade","Conversation cards, all three lanes mixed; 3 rounds, use the power word every time.",15,"Speaking",""],["Race to the Feast","Board game in groups of 4 (one Chromebook per group). Teams take turns reading cards aloud.",30,"Reading",MOD+"#arcade"],["Flag Dash tournament","Each student plays one 60-second round; top three scores on the board.",10,"Reading",MOD+"#arcade"],["Thank-you card","Write to a teacher, a worker at school, or a family member — like Japan's Labor Thanksgiving Day.",15,"Writing",MOD+"#elpa"],["Gratitude Trail finale","Every student adds a final leaf; read the whole trail together; copy the list for the hallway display.",12,"Speaking",""]]},
 ];
 const CANDO={Emerging:"I can name three countries with a day of thanks and say one food and one tradition for each, using sentence frames and my word list.",Progressing:"I can read a short informational text about a holiday, answer questions with evidence, and compare two celebrations in a paragraph with transition words.",Challenge:"I can analyze how a tradition changes when it moves to a new country and write a multi-paragraph comparison with academic vocabulary and evidence from two texts."};
 let S={day:0,done:{},leaves:[]}; try{ Object.assign(S, JSON.parse(localStorage.getItem("storm-tg-board")||"{}")); }catch(e){}
@@ -120,7 +126,7 @@ function save(){ try{ localStorage.setItem("storm-tg-board", JSON.stringify(S));
 function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("on"); setTimeout(()=>t.classList.remove("on"),1800); }
 
 document.getElementById("eq").textContent=EQ.q; document.getElementById("eqes").textContent=EQ.es;
-function renderDays(){ document.getElementById("days").innerHTML=DAYS.map((d,i)=>`<button class="${i===S.day?"on":""}" onclick="S.day=${i};save();render()">Day ${i+1}</button>`).join(""); }
+function renderDays(){ document.getElementById("days").innerHTML=DAYS.map((d,i)=>`<button class="${i===S.day?"on":""}" onclick="S.day=${i};save();render()">${i===3?"Fri":"Day "+(i+1)}</button>`).join(""); }
 function render(){
   renderDays(); const d=DAYS[S.day]; const done=S.done[S.day]||{};
   document.getElementById("dayTitle").textContent=d.title;
