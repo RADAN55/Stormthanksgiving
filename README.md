@@ -16,7 +16,7 @@ A single-file, Chromebook-friendly module for English learners, built under the 
 | 4 Listen & Speak | Two-play listening passage with 5 questions, partner interview, self-check |
 | 5 Write | Lane-specific sentence frames, live word/vocabulary counter, checklist, copy button |
 | ELPA21 Practice | Reading test (8 items: MC, select-all, vocabulary, two-part evidence, hot text, classify, sequence) + 4 writing task types with a 0–4 scoring guide |
-| Arcade | Memory Match (EN↔ES), Word Scramble, 60-second Flag Dash |
+| Arcade | Memory Match (EN↔ES), Word Scramble, 60-second Flag Dash, and "Race to the Feast" board game for 2–4 teams |
 | Color | Three color-by-number scenes with a bilingual color key |
 | Quiz | 10 auto-graded questions |
 | Teacher | Content/language objectives, MS ELP (ELPA21) + MS CCRS ELA standards, can-dos, 3-day × 90-minute pacing, differentiation, rubric, answer keys |
