@@ -1,0 +1,215 @@
+const BAND={id:"g912",label:"Grades 9–12",elpa:"ELPA21 Grades 9–12 band",audience:"combined 9–12 EL block (ELPA21 Levels 2–4, with a Challenge lane for Level 4–5 / exit-track students)",
+ ela:"RI.9-10.1, RI.9-10.2, RI.9-10.4, RI.9-10.9 · W.9-10.2, W.9-10.4, W.9-10.9 · SL.9-10.1, SL.9-10.2, SL.9-10.4 · L.9-10.4, L.9-10.6 (grade 11–12 equivalents apply for juniors and seniors)",
+ need:4, needAll:9, minWords:{emerging:40,progressing:90,challenge:180}, targets:"Emerging: 5–6 sentences · Progressing: one paragraph of 8–10 sentences · Challenge: 3 paragraphs", readLen:"50–60 words · 90–110 words · 130–150 words", countriesPlan:"United States + Puerto Rico together (whole class), then 2 countries of choice"};
+// ===== Thanksgiving Around the World — module data =====
+const VOCAB = [
+  {en:"harvest", es:"cosecha", pos:"noun", def:"the time when farmers pick the crops they grew", ex:"Many thanksgiving holidays began as a harvest celebration.", icon:"🌾"},
+  {en:"gratitude", es:"gratitud", pos:"noun", def:"the feeling of being thankful", ex:"She showed gratitude by writing a thank-you note.", icon:"🙏"},
+  {en:"tradition", es:"tradición", pos:"noun", def:"something a family or culture does the same way every year", ex:"Eating turkey is a tradition in many American homes.", icon:"🔁"},
+  {en:"feast", es:"banquete", pos:"noun", def:"a very large, special meal shared with many people", ex:"The whole family came to the feast.", icon:"🍽️"},
+  {en:"celebrate", es:"celebrar", pos:"verb", def:"to do something special and happy for an important day", ex:"People in Korea celebrate Chuseok in the fall.", icon:"🎉"},
+  {en:"ancestor", es:"antepasado", pos:"noun", def:"a family member who lived long ago, like a great-grandparent", ex:"They visit the graves of their ancestors.", icon:"🧓"},
+  {en:"gather", es:"reunirse", pos:"verb", def:"to come together in one place", ex:"Families gather at the table to eat.", icon:"👨‍👩‍👧‍👦"},
+  {en:"ceremony", es:"ceremonia", pos:"noun", def:"a formal event with special steps, often religious", ex:"The church holds a ceremony to give thanks for the crops.", icon:"🕯️"},
+  {en:"custom", es:"costumbre", pos:"noun", def:"a usual way of doing something in a culture", ex:"It is a custom to share food with neighbors.", icon:"🤝"},
+  {en:"lunar calendar", es:"calendario lunar", pos:"noun", def:"a calendar based on the moon, so the date changes every year", ex:"Chuseok follows the lunar calendar.", icon:"🌕"},
+  {en:"symbol", es:"símbolo", pos:"noun", def:"a thing that stands for an idea", ex:"The turkey is a symbol of American Thanksgiving.", icon:"🦃"},
+  {en:"community", es:"comunidad", pos:"noun", def:"all the people who live in one place or share something", ex:"The whole community came to the parade.", icon:"🏘️"},
+];
+
+// Each country: 3 reading levels. Questions are answerable from every level.
+const COUNTRIES = [
+ {id:"usa", flag:"🇺🇸", name:"United States", region:"North America", date:"4th Thursday of November", food:"turkey, stuffing, mashed potatoes, cranberry sauce, pumpkin pie", who:"family and friends", acts:"big dinner, parade, football, saying what you are thankful for",
+  emerging:"In the United States, Thanksgiving is on the fourth Thursday of November. Families gather for a big dinner. They eat turkey, mashed potatoes, and pumpkin pie. Many people watch a parade on TV. Before dinner, each person says one thing they are thankful for. The holiday started as a harvest feast in 1621.",
+  progressing:"Thanksgiving in the United States is celebrated on the fourth Thursday of November. The tradition began with a harvest feast in 1621, when English settlers in Plymouth shared food with the Wampanoag people. In 1863, President Abraham Lincoln made it a national holiday. Today, families travel long distances to gather for a feast of turkey, stuffing, cranberry sauce, and pumpkin pie. Many people watch the Macy's parade in New York and football games on TV. Before the meal, it is a custom for each person to share something they feel gratitude for.",
+  challenge:"Thanksgiving in the United States falls on the fourth Thursday of November and is one of the busiest travel days of the year. Its origin is usually traced to a three-day harvest feast in 1621, when English settlers at Plymouth shared food with the Wampanoag people who had helped them survive. However, it did not become a national holiday until 1863, when President Abraham Lincoln declared it during the Civil War to encourage unity. Modern celebrations center on a feast of roasted turkey, stuffing, cranberry sauce, and pumpkin pie, followed by the Macy's parade and football. Many families also keep the custom of going around the table so that each person expresses gratitude. For some Native Americans, the day is also a time to remember a more painful history, which is why it is sometimes called a National Day of Mourning.",
+  qs:[
+   {q:"When is Thanksgiving in the United States?", o:["The first Monday of October","The fourth Thursday of November","December 25","November 23"], a:1},
+   {q:"Which food is NOT mentioned in the reading?", o:["Turkey","Pumpkin pie","Mashed potatoes","Rice cakes"], a:3},
+   {q:"What do many people do before the meal?", o:["Say what they are thankful for","Light lanterns","Visit graves","Give gifts"], a:0}]},
+ {id:"pr", flag:"🇵🇷", name:"Puerto Rico", region:"Caribbean", date:"4th Thursday of November (same as the U.S.)", food:"pavochón (turkey seasoned like roast pork), arroz con gandules, pasteles, coquito", who:"large extended families", acts:"feast with Puerto Rican flavors, music, start of the Christmas season",
+  emerging:"Puerto Rico celebrates Thanksgiving on the same day as the United States. People call it Día de Acción de Gracias. Families eat turkey, but they season it with garlic and spices like roast pork. They call it pavochón. They also eat rice with pigeon peas and drink coquito, a sweet coconut drink. The holiday starts the Christmas season.",
+  progressing:"Because Puerto Rico is a territory of the United States, it celebrates Thanksgiving on the fourth Thursday of November. Puerto Ricans call it Día de Acción de Gracias, but the feast has its own flavors. The turkey is rubbed with garlic, oregano, and adobo so that it tastes like lechón, the island's famous roast pork. This dish is called pavochón, a mix of the words pavo and lechón. Families also serve arroz con gandules, pasteles, and coquito, a coconut drink. For many families, this feast is the beginning of a long Christmas season that lasts until January.",
+  challenge:"Puerto Rico, a U.S. territory, observes Thanksgiving on the fourth Thursday of November, but the celebration shows how a tradition changes when it travels. Islanders call the day Día de Acción de Gracias, and the centerpiece is pavochón: a turkey seasoned with garlic, oregano, and adobo and roasted until it tastes like lechón, the pork dish served at Puerto Rican parties. The name itself combines pavo and lechón. Side dishes such as arroz con gandules, pasteles, and tostones replace stuffing and mashed potatoes, and coquito, a creamy coconut drink, appears on the table. Rather than ending the holiday season, the feast opens it; Puerto Rico's Christmas celebrations continue through Three Kings Day in January. The holiday shows how communities adopt a custom and make it their own.",
+  qs:[
+   {q:"What is pavochón?", o:["A coconut drink","A turkey seasoned like roast pork","A rice dish","A parade"], a:1},
+   {q:"When does Puerto Rico celebrate Thanksgiving?", o:["The same day as the United States","On October 3","On the lunar calendar","In January"], a:0},
+   {q:"What season begins with the Thanksgiving feast in Puerto Rico?", o:["Summer","The school year","The Christmas season","Harvest"], a:2}]},
+ {id:"canada", flag:"🇨🇦", name:"Canada", region:"North America", date:"2nd Monday of October", food:"turkey, pumpkin pie, butter tarts", who:"family", acts:"dinner, long weekend, enjoying fall colors",
+  emerging:"Canada has Thanksgiving in October, not November. It is on the second Monday of October. The harvest comes early in Canada because the weather gets cold fast. Families eat turkey and pumpkin pie. Many people enjoy a long weekend. Some go for a walk to see the red and orange leaves.",
+  progressing:"Canadian Thanksgiving is celebrated on the second Monday of October, more than a month before the American holiday. One reason is geography: Canada is farther north, so the harvest ends earlier. The holiday became official in 1879, and in 1957 the government fixed the date. The meal looks similar to the U.S. feast, with turkey and pumpkin pie, but many families also serve butter tarts. Because the holiday falls on a Monday, Canadians enjoy a three-day weekend, and many spend it outdoors enjoying the fall colors.",
+  challenge:"Canada's Thanksgiving falls on the second Monday of October, roughly six weeks before the U.S. holiday, and the difference is largely a matter of climate. Because the Canadian growing season is shorter, the harvest is finished by early October. Parliament first proclaimed a national day of thanksgiving in 1879, and in 1957 it permanently fixed the date. The menu overlaps with the American one, featuring turkey and pumpkin pie, but regional dishes such as butter tarts and Nanaimo bars are common. Unlike the U.S., Canada does not pair the holiday with a giant parade or shopping day; the tone is quieter and more focused on the long weekend, hiking among the autumn leaves, and gathering with family.",
+  qs:[
+   {q:"When is Canadian Thanksgiving?", o:["The fourth Thursday of November","The second Monday of October","December 1","The first Sunday of October"], a:1},
+   {q:"Why is the Canadian holiday earlier than the American one?", o:["The harvest ends earlier in the cold north","Canada does not like November","Schools close in October","It is a religious rule"], a:0},
+   {q:"Which dessert is mentioned for Canada?", o:["Mooncakes","Butter tarts","Songpyeon","Coquito"], a:1}]},
+ {id:"brazil", flag:"🇧🇷", name:"Brazil", region:"South America", date:"4th Thursday of November (not a day off)", food:"turkey, rice, farofa, tropical fruit", who:"churches and some families", acts:"church services of thanks, family dinner",
+  emerging:"Brazil has a day of thanks called Dia de Ação de Graças. It is on the fourth Thursday of November, the same day as in the United States. But it is not a day off from work or school. Many churches have a special service to give thanks. Some families eat a dinner with turkey, rice, and fruit.",
+  progressing:"Brazil's Dia Nacional de Ação de Graças is celebrated on the fourth Thursday of November. The idea came from Joaquim Nabuco, a Brazilian ambassador who saw Thanksgiving in Washington, D.C., and admired the custom. In 1949 the president made it an official day of thanks. However, it is not a public holiday, so people still go to work and school. Churches hold services of thanksgiving, and some families, especially in big cities, prepare a dinner with turkey, rice, farofa, and tropical fruit.",
+  challenge:"Brazil's Dia Nacional de Ação de Graças shows how a holiday can be adopted by law yet remain a minor tradition. The ambassador Joaquim Nabuco, impressed by a Thanksgiving service he attended in Washington, D.C. in the early 1900s, suggested that Brazil create a similar day. President Eurico Gaspar Dutra signed it into law in 1949, setting it on the fourth Thursday of November. Because it is not a public holiday, most Brazilians continue with their normal routines, and the day is observed mainly in churches that hold services of gratitude. In recent years, restaurants and families in large cities such as São Paulo have begun hosting dinners with turkey, rice, farofa, and tropical fruit, mixing the American model with Brazilian flavors.",
+  qs:[
+   {q:"Is Brazil's day of thanks a day off from school?", o:["Yes, schools close for a week","No, people still go to work and school","Only in São Paulo","Only for churches"], a:1},
+   {q:"Who had the idea to bring the holiday to Brazil?", o:["A football player","An ambassador","A farmer","A teacher"], a:1},
+   {q:"Where is the day mainly celebrated in Brazil?", o:["At the beach","In churches","At parades","At school"], a:1}]},
+ {id:"germany", flag:"🇩🇪", name:"Germany", region:"Europe", date:"1st Sunday of October (Erntedankfest)", food:"bread, fruit, vegetables displayed at church; sausages and beer at festivals", who:"churches and villages", acts:"church service, harvest crown, parades, music",
+  emerging:"In Germany, the harvest holiday is called Erntedankfest. It means harvest thanks festival. It is on the first Sunday of October. People bring fruit, vegetables, and bread to church. They make a big crown of wheat called a harvest crown. In some villages there are parades and music. It is not a big family dinner like in the United States.",
+  progressing:"Germany's Erntedankfest, or harvest thanksgiving festival, is usually held on the first Sunday of October. It is mostly a church and community celebration rather than a family dinner. People decorate the church altar with fruit, vegetables, grains, and bread, and they weave a large harvest crown from wheat. After the service, some villages hold parades with music, dancing, and food stands selling sausages. Children sometimes carry paper lanterns in the evening. Afterward, the food from the altar is often given to people in need.",
+  challenge:"Germany's Erntedankfest, literally harvest-thanks-festival, is celebrated mainly on the first Sunday of October and differs sharply from the American model. It is not a national holiday, and there is no single family feast. Instead, congregations decorate church altars with grains, fruit, vegetables, and loaves of bread, and many villages weave an Erntekrone, a harvest crown of wheat, oats, and flowers. Rural communities follow the service with processions, brass bands, and festival tents. In the evening children may parade with lanterns. A key value of the holiday is sharing: the produce displayed in church is typically donated to food banks afterward, which connects an ancient agricultural ceremony to a modern sense of community responsibility.",
+  qs:[
+   {q:"What does Erntedankfest mean?", o:["Harvest thanks festival","Moon festival","Turkey day","Family Sunday"], a:0},
+   {q:"What do people make from wheat?", o:["A lantern","A harvest crown","A mooncake","A float"], a:1},
+   {q:"Where is most of the celebration?", o:["At a football stadium","At home with turkey","In the church and village","At the beach"], a:2}]},
+ {id:"japan", flag:"🇯🇵", name:"Japan", region:"Asia", date:"November 23 (Kinrō Kansha no Hi)", food:"no special feast; some families eat together", who:"workers, children, community", acts:"thanking workers, children's thank-you cards, labor events",
+  emerging:"Japan has a holiday on November 23 called Labor Thanksgiving Day. In Japanese it is Kinrō Kansha no Hi. It is a day to say thank you to workers. Children make cards and give them to police officers, firefighters, and nurses. There is no big dinner. The holiday comes from an old harvest ceremony for rice.",
+  progressing:"Japan's Kinrō Kansha no Hi, or Labor Thanksgiving Day, is a national holiday on November 23. It grew out of Niiname-sai, an ancient ceremony in which the emperor offered the first rice of the harvest to the gods. After World War II, in 1948, the holiday was renamed to celebrate workers and production. Today, schools and communities hold events to thank the people who serve them. Elementary students often draw pictures or write cards and deliver them to police stations, fire stations, and hospitals. Unlike American Thanksgiving, there is no traditional feast.",
+  challenge:"Japan's Kinrō Kansha no Hi, Labor Thanksgiving Day, is observed on November 23 and illustrates how a harvest ritual can become a modern civic holiday. Its root is Niiname-sai, a ceremony in which the emperor tastes the newly harvested rice and offers it to the gods; the rite is still performed privately by the imperial family. In 1948, during the postwar period, the government established a public holiday that honors labor, production, and gratitude among citizens. There is no traditional feast; instead, the day is marked by community gestures. Schoolchildren create drawings and thank-you cards for police officers, firefighters, and hospital staff, and labor organizations hold events about workers' rights. The holiday therefore links an ancient agricultural ceremony to appreciation for the work that sustains a community.",
+  qs:[
+   {q:"What is the date of Japan's Labor Thanksgiving Day?", o:["November 23","The fourth Thursday of November","October 3","The 15th day of the 8th lunar month"], a:0},
+   {q:"Who do children thank on this day?", o:["Their teachers only","Police officers, firefighters, and nurses","Football players","Farmers only"], a:1},
+   {q:"What old ceremony did the holiday come from?", o:["A rice harvest ceremony","A moon ceremony","A parade","A football game"], a:0}]},
+ {id:"korea", flag:"🇰🇷", name:"South Korea", region:"Asia", date:"15th day of the 8th lunar month (Chuseok, Sept–Oct)", food:"songpyeon rice cakes, jeon pancakes, fresh fruit", who:"extended family, ancestors", acts:"travel to hometown, honor ancestors, clean graves, folk games",
+  emerging:"In South Korea, the harvest holiday is Chuseok. It follows the lunar calendar, so it is in September or October. It lasts three days. Millions of people travel to their hometowns. Families make rice cakes called songpyeon. They honor their ancestors with food and bows. They also clean the family graves.",
+  progressing:"Chuseok is Korea's harvest holiday, held on the 15th day of the eighth lunar month, which falls in September or October. It is a three-day national holiday, and the roads and trains fill with millions of people returning to their hometowns. Families gather early in the morning for charye, a ceremony in which they offer food to their ancestors and bow. They also visit the family graves to cut the grass and pay respect. The most famous food is songpyeon, small rice cakes filled with sesame seeds, beans, or chestnuts, which the family shapes together. In the evening, people may play folk games or admire the full moon.",
+  challenge:"Chuseok, often described as Korean Thanksgiving, takes place on the 15th day of the eighth lunar month, when the full moon marks the harvest. Because it follows the lunar calendar, the date shifts each year between mid-September and early October. The three-day holiday triggers one of the largest annual migrations in the country as families return to ancestral hometowns. The morning begins with charye, a memorial ceremony in which a table of carefully arranged foods is offered to ancestors, followed by deep bows. Families also perform seongmyo, visiting and tidying ancestral graves. Songpyeon, half-moon rice cakes steamed over pine needles, are made together, and tradition says a beautifully shaped songpyeon brings a good future. Folk games, traditional clothing called hanbok, and moon-viewing complete a holiday that balances gratitude for the harvest with respect for family history.",
+  qs:[
+   {q:"Why does the date of Chuseok change every year?", o:["It follows the lunar calendar","The president chooses it","It depends on the weather","It is always November 23"], a:0},
+   {q:"What are songpyeon?", o:["Rice cakes","Lanterns","Graves","Pancakes"], a:0},
+   {q:"What do families do for their ancestors?", o:["Watch football","Offer food and bow","Write cards","Build a crown"], a:1}]},
+ {id:"china", flag:"🇨🇳", name:"China", region:"Asia", date:"15th day of the 8th lunar month (Mid-Autumn Festival)", food:"mooncakes, pomelo, tea", who:"family", acts:"moon viewing, lanterns, family reunion dinner",
+  emerging:"China has the Mid-Autumn Festival. It is on the night of the full moon in September or October. Families eat dinner together. Then they go outside to look at the full moon. They eat round mooncakes. The round shape is a symbol of the family together. Children carry colorful lanterns.",
+  progressing:"The Mid-Autumn Festival in China is held on the 15th day of the eighth lunar month, when the moon is full and the harvest is finished. It is a holiday about family reunion. People travel home for a dinner, then gather outside to admire the moon, which is a symbol of family unity. The special food is the mooncake, a round pastry filled with lotus seed paste, red bean, or salted egg yolk. Families share mooncakes by cutting them into pieces, one for each person. Children carry glowing lanterns, and many cities hold lantern displays. The same festival is celebrated in Vietnam as Tết Trung Thu.",
+  challenge:"China's Mid-Autumn Festival, or Zhongqiu Jie, falls on the 15th day of the eighth lunar month, the night of the brightest full moon of the year and the close of the harvest. It is more than two thousand years old and centers on reunion: the round moon symbolizes the family circle, so relatives travel long distances to eat together. After dinner, families sit outdoors to view the moon, drink tea, and share mooncakes, dense round pastries whose fillings range from lotus seed paste to salted duck egg yolk. Cutting a single mooncake into equal pieces for every relative expresses the idea that the family is complete. Lantern processions, the legend of the moon goddess Chang'e, and offerings of pomelo and other fruit add to the night. Vietnam's Tết Trung Thu and the Korean Chuseok share the same date, showing how one harvest moon unites several cultures.",
+  qs:[
+   {q:"What does the full moon symbolize at the Mid-Autumn Festival?", o:["Money","The family together","Winter","A good harvest only"], a:1},
+   {q:"What is the special food?", o:["Turkey","Mooncakes","Songpyeon","Pavochón"], a:1},
+   {q:"What do children carry at night?", o:["Lanterns","Pumpkins","Flags","Rice"], a:0}]},
+ {id:"liberia", flag:"🇱🇷", name:"Liberia", region:"Africa", date:"1st Thursday of November", food:"roast chicken, spicy green bean casserole, mashed cassava, rice", who:"church and family", acts:"church service, feast, music and dancing",
+  emerging:"Liberia is a country in West Africa. It has Thanksgiving on the first Thursday of November. Liberia was started in 1847 by free African Americans. They brought the holiday with them. People go to church in the morning. Then they eat a feast of roast chicken, spicy green beans, and mashed cassava. There is music and dancing.",
+  progressing:"Liberia is one of the few countries in Africa with a Thanksgiving holiday, celebrated on the first Thursday of November. The country was founded in 1847 by free African Americans who settled on the coast of West Africa, and they carried the Thanksgiving tradition with them. The day begins with church services that give thanks for freedom and the harvest. The feast afterward mixes American and West African flavors: roast chicken instead of turkey, green bean casserole made spicy with hot peppers, mashed cassava, and rice. Music and dancing often follow the meal.",
+  challenge:"Liberia's Thanksgiving, held on the first Thursday of November, is a direct result of the country's unusual history. Founded in 1847 by formerly enslaved and free African Americans who emigrated to West Africa, Liberia adopted many American institutions, including a day of thanksgiving. For Liberians the holiday carries a double meaning: gratitude for the harvest and gratitude for freedom. The morning is devoted to church services, often with choirs and prayers of thanks. The feast that follows adapts the American menu to local ingredients and tastes: roast chicken replaces turkey, the green bean casserole is spiced with hot peppers, and mashed cassava and jollof-style rice appear instead of mashed potatoes. Drumming, dancing, and visiting neighbors stretch the celebration into the night, making it as much a community event as a family one.",
+  qs:[
+   {q:"When is Thanksgiving in Liberia?", o:["The first Thursday of November","The fourth Thursday of November","October 3","November 23"], a:0},
+   {q:"Who founded Liberia in 1847?", o:["English settlers","Free African Americans","Korean farmers","German churches"], a:1},
+   {q:"Which food replaces turkey at the Liberian feast?", o:["Mooncakes","Roast chicken","Pavochón","Butter tarts"], a:1}]},
+];
+
+// Compare activity statements: true for most celebrations ("same") or only some ("different")
+const SORT_ITEMS = [
+ {t:"Families gather to share food.", k:"same"},
+ {t:"The holiday began as a harvest celebration.", k:"same"},
+ {t:"People eat turkey.", k:"diff"},
+ {t:"The date follows the lunar calendar.", k:"diff"},
+ {t:"People show gratitude.", k:"same"},
+ {t:"People honor their ancestors at graves.", k:"diff"},
+ {t:"There is a big parade on TV.", k:"diff"},
+ {t:"It is a day to be with your community.", k:"same"},
+ {t:"Children carry lanterns.", k:"diff"},
+ {t:"The holiday is on the fourth Thursday of November.", k:"diff"},
+];
+
+const LISTENING = {
+ text:"Hello, class. Today I want to tell you about my two favorite holidays. I was born in Korea, but I live in Mississippi now. In September, my family celebrates Chuseok. We make songpyeon, small rice cakes with sweet sesame inside. We also call my grandmother in Seoul, because she visits the graves of our ancestors that day. Then, in November, we celebrate American Thanksgiving with our neighbors. We bring a tray of songpyeon, and our neighbors bring a turkey. My favorite part is going around the table. Last year I said I was thankful for my English teacher. Both holidays are about the same thing: family, food, and gratitude.",
+ qs:[
+  {q:"Where was the speaker born?", o:["Mississippi","Korea","Japan","Canada"], a:1},
+  {q:"What does the speaker's family make for Chuseok?", o:["Turkey","Mooncakes","Songpyeon","Pumpkin pie"], a:2},
+  {q:"What does the grandmother do on Chuseok?", o:["Visits the graves of ancestors","Watches a parade","Makes a turkey","Flies to Mississippi"], a:0},
+  {q:"What do the neighbors bring to Thanksgiving?", o:["Rice cakes","A turkey","Lanterns","Mooncakes"], a:1},
+  {q:"According to the speaker, what are both holidays about?", o:["Shopping and sports","Family, food, and gratitude","The moon","School"], a:1}]
+};
+
+const QUIZ = [
+ {q:"Which word means the time when farmers pick their crops?", o:["gratitude","harvest","ceremony","symbol"], a:1},
+ {q:"Which country celebrates Thanksgiving on the second Monday of October?", o:["Canada","Liberia","Brazil","Japan"], a:0},
+ {q:"Chuseok and the Mid-Autumn Festival are on the same date because both follow the ______.", o:["school calendar","lunar calendar","American calendar","church calendar"], a:1},
+ {q:"What is pavochón?", o:["A Korean rice cake","A Chinese pastry","A Puerto Rican turkey seasoned like roast pork","A German harvest crown"], a:2},
+ {q:"In Japan, Labor Thanksgiving Day is a day to thank ______.", o:["ancestors","the moon","workers","farmers only"], a:2},
+ {q:"Which holiday is mostly celebrated in churches and villages with a harvest crown?", o:["Erntedankfest in Germany","Thanksgiving in Liberia","Chuseok in Korea","Thanksgiving in the United States"], a:0},
+ {q:"Liberia has a Thanksgiving holiday because the country was founded by ______.", o:["English settlers","free African Americans","Korean farmers","Brazilian churches"], a:1},
+ {q:"Which statement is true for MOST of the celebrations in this module?", o:["People eat turkey.","Families gather to share food and show gratitude.","People watch a parade.","Children carry lanterns."], a:1},
+ {q:"A round mooncake is a ______ of the family together.", o:["custom","symbol","feast","harvest"], a:1},
+ {q:"Which sentence uses the word 'gather' correctly?", o:["We gather the turkey in the oven.","Families gather at the table on Chuseok.","The moon gathers every night.","I gather thankful for my family."], a:1},
+];
+
+const FRAMES = {
+ emerging:[
+  "In ____, people celebrate ____ on ____.",
+  "They eat ____ and ____.",
+  "In the United States, people eat ____.",
+  "Both holidays are about ____.",
+  "I am thankful for ____ because ____."],
+ progressing:[
+  "____ and ____ are both holidays of gratitude, but they are different in some ways.",
+  "First, ____ is celebrated on ____, while ____ is celebrated on ____.",
+  "Second, the food is different. In ____, families eat ____; in ____, they eat ____.",
+  "However, both holidays share one important custom: ____.",
+  "In my opinion, the most interesting tradition is ____ because ____."],
+ challenge:[
+  "Although ____ and ____ take place in different parts of the world, they share a common purpose: ____.",
+  "One significant difference is the origin of each holiday. ____ began as ____, whereas ____ developed from ____.",
+  "In addition, the role of ____ (ancestors / community / family) differs. For example, ____.",
+  "Despite these differences, the evidence suggests that ____.",
+  "If I could add one tradition from another country to my own family's celebration, I would choose ____ because ____."]
+};
+
+const CANDO = {
+ emerging:"I can name three countries with a day of thanks and say one food and one tradition for each, using sentence frames and my word list.",
+ progressing:"I can read a short informational text about a holiday, answer questions with evidence, and compare two celebrations in a paragraph with transition words.",
+ challenge:"I can analyze how a tradition changes when it moves to a new country and write a multi-paragraph comparison with academic vocabulary and evidence from two texts."
+};
+
+const LESSON_META = {
+ 1:{content:"Students will learn 12 key words about harvest and gratitude holidays and use them to describe a celebration.", language:"Students will say and write definitions and example sentences using the words tradition, gratitude, harvest, and feast.", elp:["ELP 8: Determine meaning of words and phrases","ELP 9: Create clear and coherent speech and text"], ela:["L.9-10.4 Determine meaning of unknown words","L.9-10.6 Acquire academic vocabulary"]},
+ 2:{content:"Students will describe how nine countries celebrate a day of thanks, including the date, foods, and customs.", language:"Students will read informational text and answer questions orally and in writing using complete sentences and evidence (The text says...).", elp:["ELP 1: Construct meaning from informational text","ELP 3: Speak and write about texts","ELP 8: Determine meaning of words"], ela:["RI.9-10.1 Cite textual evidence","RI.9-10.2 Determine central idea","RI.9-10.4 Word meaning in context"]},
+ 3:{content:"Students will compare and contrast two celebrations and identify what most harvest holidays have in common.", language:"Students will use comparison language (both, while, however, similar, different) in speech and writing.", elp:["ELP 4: Construct grade-appropriate claims with evidence","ELP 7: Adapt language choices","ELP 9: Clear and coherent speech"], ela:["RI.9-10.9 Analyze related texts","W.9-10.2 Informative writing","SL.9-10.1 Collaborative discussion"]},
+ 4:{content:"Students will understand a personal narrative about celebrating two holidays and interview a partner about family traditions.", language:"Students will listen for key details, then ask and answer questions in a partner interview using past tense and sentence frames.", elp:["ELP 1: Construct meaning from oral presentations","ELP 2: Participate in oral exchanges","ELP 10: Standard English conventions"], ela:["SL.9-10.1 Discussion","SL.9-10.2 Integrate oral information","SL.9-10.4 Present information"]},
+ 5:{content:"Students will write a comparison of two days of thanks using information from the readings.", language:"Students will write an organized paragraph (or essay) with a topic sentence, details from the texts, transition words, and a closing sentence.", elp:["ELP 3: Speak and write about texts","ELP 4: Claims with evidence","ELP 9: Clear and coherent writing","ELP 10: Conventions"], ela:["W.9-10.2 Informative/explanatory writing","W.9-10.4 Clear and coherent writing","W.9-10.9 Draw evidence from texts"]},
+};
+
+const P_LIT = [
+ "Min-ji checked the kitchen clock again. It was 6:40 a.m., and her grandmother in Seoul would be awake by now. Today was Chuseok, and for the first time, Min-ji was not in Korea for it.",
+ "\"Come help with the songpyeon,\" her mother called. On the counter sat a bowl of rice dough and a dish of sweet sesame filling. Min-ji pinched off a piece of dough, pressed it flat, and folded it around a spoonful of filling. Her first rice cake looked like a crooked half-moon.",
+ "\"Grandma says an ugly songpyeon means an ugly baby,\" Min-ji laughed. Her mother smiled. \"Then make the next one beautiful.\"",
+ "At eight o'clock they called Seoul. Grandma held up the phone so Min-ji could see the table of food for the ancestors: pears, chestnuts, and a tall stack of rice cakes. \"Next year,\" Grandma said, \"you bring your American friends.\"",
+ "Min-ji looked at her tray of half-moons, some crooked and some perfect. She decided she would bring them to school on Monday. Her friends in Mississippi had never tasted a songpyeon, and that felt like a good reason to share."
+];
+const P_INFO = [
+ "Every autumn, villages across Germany celebrate Erntedankfest, a festival of thanks for the harvest. The name combines three German words: Ernte (harvest), Dank (thanks), and Fest (festival). Most communities hold it on the first Sunday of October.",
+ "The celebration begins in church. Farmers and families bring the best of their harvest—apples, pumpkins, grapes, and loaves of bread—and arrange them in front of the altar. In many villages, people weave an Erntekrone, a large crown made of wheat, oats, and flowers, which hangs above the display.",
+ "After the service, the festival moves outdoors. Brass bands play, children carry paper lanterns, and food stands sell sausages and pretzels. Some towns also hold a parade with decorated wagons.",
+ "One tradition is especially important. When the festival ends, the fruit and bread from the church are not thrown away. They are donated to food banks and shelters. In this way, Erntedankfest connects an ancient harvest ceremony to a modern idea: gratitude means sharing what you have."
+];
+const P_PROC = ["How to Make Songpyeon (Korean Rice Cakes)",
+ "1. Mix rice flour with hot water and knead until the dough is smooth.",
+ "2. Pinch off a small ball of dough and press it flat in your palm.",
+ "3. Place one spoonful of sweet sesame or bean filling in the center.",
+ "4. Fold the dough over the filling and pinch the edges to make a half-moon shape.",
+ "5. Steam the rice cakes on a layer of pine needles for about 20 minutes.",
+ "6. Rinse the cakes in cold water and brush them with a little sesame oil before serving."
+];
+
+const R_ITEMS = [
+ {type:"mc", passage:"lit", dir:"Read the story. Then answer the question.", q:"Why is this Chuseok different for Min-ji?", o:["She does not like songpyeon.","It is her first Chuseok away from Korea.","Her grandmother is visiting.","Her mother is working."], a:1, domain:"Read for Details (literary)"},
+ {type:"ms", passage:"lit", dir:"Select ALL the correct answers.", q:"Which foods are on the ancestors' table in Seoul?", o:["pears","turkey","chestnuts","rice cakes","pumpkin pie"], a:[0,2,3], domain:"Read for Details — multiple select"},
+ {type:"vocab", passage:"lit", dir:"Read the sentence from paragraph 2. Then answer the question.", q:"\"Min-ji <b>pinched off</b> a piece of dough.\" What does <b>pinched off</b> mean in this sentence?", o:["threw away","took a small piece with her fingers","heated","measured carefully"], a:1, domain:"Vocabulary in context"},
+ {type:"twopart", passage:"lit", dir:"This question has two parts. Answer Part A, then Part B.", qa:"Part A: What is the main message of the story?", oa:["Cooking is difficult.","Phones make holidays better.","Sharing a tradition can help you feel at home.","Grandmothers should visit America."], aa:2, qb:"Part B: Which sentence from the story BEST supports your answer to Part A?", ob:["It was 6:40 a.m., and her grandmother in Seoul would be awake by now.","Her first rice cake looked like a crooked half-moon.","She decided she would bring them to school on Monday.","On the counter sat a bowl of rice dough."], ab:2, domain:"Evidence-based two-part item"},
+ {type:"hot", passage:"info", dir:"Click the sentence in paragraph 4 that explains what happens to the food after the festival.", para:3, a:2, domain:"Hot text (informational)"},
+ {type:"mc", passage:"info", dir:"Read the text. Then answer the question.", q:"What is the purpose of paragraph 1?", o:["To describe the parade","To explain what the word Erntedankfest means and when it happens","To tell how to make a harvest crown","To compare Germany and the United States"], a:1, domain:"Read Academic Text — text structure"},
+ {type:"classify", passage:"info", dir:"Read each detail. Decide where it happens. Put each detail in the correct column.", cols:["In the church","Outdoors after the service"], items:[["Bread and apples are placed near the altar.",0],["Brass bands play.",1],["A wheat crown hangs above the display.",0],["Children carry paper lanterns.",1],["Food stands sell pretzels.",1]], domain:"Classify details into a table"},
+ {type:"order", passage:"proc", dir:"The steps are out of order. Put them in the correct order (1 = first).", steps:["Steam the cakes on pine needles.","Fold the dough and pinch the edges.","Knead rice flour with hot water.","Put filling in the center of the flat dough."], a:[2,3,1,0], domain:"Sequence a procedure"},
+];
+
+const W_TASKS = [
+ {type:"edit", title:"Task 1 · Edit a Text", dir:"Read the paragraph a student wrote. Choose the correct word or words to complete each sentence.", domain:"Edit for grammar and conventions",
+  text:[ "Last year my family ", {o:["celebrate","celebrated","celebrating"],a:1}, " Thanksgiving with our neighbors. My aunt ", {o:["bring","brings","brought"],a:2}, " a big turkey, and we ", {o:["eat","ate","eaten"],a:1}, " outside because the weather was warm. ", {o:["There","Their","They're"],a:0}, " were twenty people at the table! Next year we ", {o:["will invite","invited","invite"],a:0}, " even more friends." ]},
+ {type:"picture", title:"Task 2 · Write About a Picture", dir:"Look at the picture. Write TWO or more complete sentences that describe what is happening. Use capital letters and periods.", domain:"Write sentences about a picture", min:2,
+  svg:`<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#fff6e6"/><rect x="40" y="110" width="320" height="18" rx="6" fill="#8a6240"/><rect x="60" y="128" width="14" height="60" fill="#5b3a1e"/><rect x="326" y="128" width="14" height="60" fill="#5b3a1e"/><ellipse cx="200" cy="100" rx="60" ry="22" fill="#f0862c" stroke="#5b3a1e" stroke-width="3"/><ellipse cx="200" cy="92" rx="40" ry="12" fill="#d7372a"/><circle cx="110" cy="70" r="22" fill="#f4c9a0" stroke="#5b3a1e" stroke-width="3"/><rect x="92" y="92" width="36" height="30" rx="8" fill="#3a7bd5"/><circle cx="300" cy="70" r="22" fill="#c68b59" stroke="#5b3a1e" stroke-width="3"/><rect x="282" y="92" width="36" height="30" rx="8" fill="#3f8f4a"/><path d="M 128 100 L 150 92" stroke="#f4c9a0" stroke-width="8" stroke-linecap="round"/><path d="M 282 100 L 258 92" stroke="#c68b59" stroke-width="8" stroke-linecap="round"/><circle cx="104" cy="66" r="2" fill="#2b1d12"/><circle cx="116" cy="66" r="2" fill="#2b1d12"/><path d="M 102 76 q 8 6 16 0" fill="none" stroke="#2b1d12" stroke-width="2"/><circle cx="294" cy="66" r="2" fill="#2b1d12"/><circle cx="306" cy="66" r="2" fill="#2b1d12"/><path d="M 292 76 q 8 6 16 0" fill="none" stroke="#2b1d12" stroke-width="2"/><text x="200" y="185" text-anchor="middle" font-size="13" fill="#7a6552" font-family="sans-serif">Two friends share a dish at a Thanksgiving table.</text></svg>`,
+  frames:["The two friends are ____.","On the table, there is ____.","They look ____ because ____."]},
+ {type:"email", title:"Task 3 · Write an Email", dir:"Your school is planning an International Thanksgiving Lunch. Write an email to a friend. Invite your friend, explain what the lunch is, and tell what food you will bring. Write at least FIVE sentences.", domain:"Write a letter or email", min:5,
+  frames:["Dear ____,","I am writing to invite you to ____.","The lunch is on ____ at ____.","I am going to bring ____ because ____.","I hope you can come.","Your friend, ____"],
+  checks:["Greeting (Dear ...) and closing (Your friend, ...)","Says what the event is","Says when or where","Says what food you will bring","Asks or invites the friend"]},
+ {type:"report", title:"Task 4 · Write an Explanation Using Notes", dir:"A student took notes about harvest holidays. Use the notes to write an explanation of how people in two countries give thanks for the harvest. Use information from the notes. Write at least ONE paragraph (Challenge: three paragraphs).", domain:"Write an explanation from source notes", min:7,
+  notes:[["Germany — Erntedankfest","first Sunday of October","church altar decorated with bread, fruit, vegetables","harvest crown made of wheat","food is donated to food banks after"],["South Korea — Chuseok","15th day of the 8th lunar month (Sept–Oct)","families travel to hometowns","food offered to ancestors; graves cleaned","songpyeon rice cakes made together"]],
+  frames:["Many countries have a holiday to give thanks for the harvest. Two examples are ____ and ____.","In Germany, ____.","In South Korea, ____.","Both holidays ____. However, ____.","In conclusion, ____."],
+  checks:["Names both countries in the first sentence","Uses at least two details from EACH set of notes","Uses comparison words (both, however, while)","Has a closing sentence","At least 7 sentences (Challenge: 3 paragraphs)"]},
+];
+

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thanksgiving Around the World — EL Module (__GRADE__)</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fff6e6;--paper:#ffffff;--orange:#e8912d;--orange-soft:#fde3bf;--red:#b93a2a;--brown:#5b3a1e;--brown-soft:#8a6240;--green:#2f6f3e;--green-soft:#dff0e2;--gold:#f2b644;--ink:#2b1d12;--muted:#7a6552;--shadow:0 6px 18px rgba(91,58,30,.12);--radius:16px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:17px;line-height:1.55}
+button{font-family:inherit;cursor:pointer}
+header{background:linear-gradient(135deg,#7a3b1e,#b93a2a 55%,#e8912d);color:#fff;padding:18px 20px 14px}
+.wrap{max-width:1040px;margin:0 auto}
+.brand{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.brand h1{margin:0;font-size:1.5rem;font-weight:800;letter-spacing:.2px}
+.brand h1 small{display:block;font-size:.85rem;font-weight:600;opacity:.9}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;background:rgba(255,255,255,.18);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;color:#fff;padding:6px 12px;border-radius:999px;font-weight:700;font-size:.85rem}
+.seg button.on{background:#fff;color:var(--red)}
+.toggle{border:2px solid rgba(255,255,255,.6);background:transparent;color:#fff;border-radius:999px;padding:5px 12px;font-weight:700;font-size:.85rem}
+.toggle.on{background:#fff;color:var(--brown)}
+nav{background:var(--paper);border-bottom:3px solid var(--orange-soft);position:sticky;top:0;z-index:5}
+nav .wrap{display:flex;overflow-x:auto;gap:4px;padding:6px 10px;scrollbar-width:none}
+nav button{border:0;background:transparent;padding:8px 12px;border-radius:10px;font-weight:700;color:var(--brown-soft);white-space:nowrap;font-size:.92rem;display:flex;gap:6px;align-items:center}
+nav button.on{background:var(--orange-soft);color:var(--red)}
+nav button .dot{width:9px;height:9px;border-radius:50%;background:#d9cbb8}
+nav button .dot.done{background:var(--green)}
+main{padding:22px 16px 60px}
+section.view{display:none}section.view.on{display:block}
+.card{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:18px}
+h2{margin:0 0 6px;color:var(--red);font-size:1.45rem;font-weight:800}
+h3{margin:18px 0 8px;color:var(--brown);font-size:1.1rem;font-weight:800}
+.eq{font-style:italic;color:var(--brown-soft)}
+.pill{display:inline-block;background:var(--orange-soft);color:var(--brown);border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:700;margin:2px 4px 2px 0}
+.pill.g{background:var(--green-soft);color:var(--green)}
+.btn{border:0;background:var(--orange);color:#fff;font-weight:800;padding:10px 18px;border-radius:12px;font-size:.95rem;box-shadow:0 3px 0 #b86d16}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.sec{background:#fff;color:var(--brown);border:2px solid var(--orange-soft);box-shadow:none}
+.btn.sm{padding:6px 12px;font-size:.85rem}
+.btn.green{background:var(--green);box-shadow:0 3px 0 #1f4d2a}
+.speak{border:0;background:var(--gold);color:var(--brown);border-radius:999px;width:34px;height:34px;font-size:1rem;display:inline-grid;place-items:center;vertical-align:middle;margin-left:6px}
+.es{color:var(--brown-soft);font-style:italic}
+body:not(.showES) .es{display:none}
+details.tbox{background:#fbf3e7;border-left:5px solid var(--orange);border-radius:10px;padding:10px 14px;margin:12px 0 18px}
+details.tbox summary{cursor:pointer;font-weight:800;color:var(--brown)}
+details.tbox p{margin:6px 0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.flash{perspective:900px;height:180px;cursor:pointer}
+.flash .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flash.flip .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:var(--shadow)}
+.face.f{background:#fff;border:3px solid var(--orange-soft)}
+.face.b{background:var(--brown);color:#fff;transform:rotateY(180deg);font-size:.9rem;justify-content:flex-start;overflow:auto}
+.face .ic{font-size:2.2rem}.face .w{font-size:1.35rem;font-weight:800;color:var(--red)}
+.face.b .w{color:var(--gold);font-size:1.05rem}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mi{background:#fff;border:2px solid var(--orange-soft);border-radius:10px;padding:8px 10px;cursor:pointer;font-weight:600;font-size:.93rem}
+.mi.sel{border-color:var(--orange);background:var(--orange-soft)}
+.mi.ok{border-color:var(--green);background:var(--green-soft);color:var(--green);cursor:default}
+.mi.bad{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.ccard{background:#fff;border:3px solid var(--orange-soft);border-radius:14px;padding:12px;cursor:pointer;text-align:center;transition:transform .15s}
+.ccard:hover{transform:translateY(-3px);border-color:var(--orange)}
+.ccard.read{border-color:var(--green)}
+.ccard .fl{font-size:2.4rem}.ccard .nm{font-weight:800;color:var(--brown)}.ccard .rg{font-size:.78rem;color:var(--muted)}
+.reading{font-size:1.08rem;line-height:1.75;background:#fffdf8;border:2px dashed var(--orange-soft);border-radius:12px;padding:16px 18px}
+.reading b.v{color:var(--red);border-bottom:2px dotted var(--red);cursor:help}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.fact{background:var(--orange-soft);border-radius:10px;padding:8px 12px;font-size:.9rem}.fact b{display:block;color:var(--brown);font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+.q{margin:12px 0;padding:12px 14px;background:#fff;border:2px solid var(--orange-soft);border-radius:12px}
+.q p{margin:0 0 8px;font-weight:700}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid #eadcc8;border-radius:10px;padding:8px 12px;margin:5px 0;font-weight:600}
+.opt.on{border-color:var(--orange);background:var(--orange-soft)}
+.opt.ok{border-color:var(--green);background:var(--green-soft)}
+.opt.no{border-color:var(--red);background:#fde4df}
+.score{font-weight:800;color:var(--green);font-size:1.1rem;margin-top:10px}
+.sortrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:#fff;border:2px solid var(--orange-soft);border-radius:10px;padding:8px 12px;margin:6px 0}
+.sortrow .bs button{border:2px solid #eadcc8;background:#fff;border-radius:999px;padding:4px 12px;font-weight:700;font-size:.85rem;margin-left:4px}
+.sortrow .bs button.on{background:var(--orange-soft);border-color:var(--orange)}
+.sortrow.ok{border-color:var(--green);background:var(--green-soft)}.sortrow.no{border-color:var(--red)}
+table.cmp{width:100%;border-collapse:collapse;font-size:.93rem}
+table.cmp th,table.cmp td{border:1px solid #eadcc8;padding:7px 9px;text-align:left;vertical-align:top}
+table.cmp th{background:var(--orange-soft);color:var(--brown)}
+select,textarea,input[type=text]{font-family:inherit;font-size:1rem;border:2px solid #eadcc8;border-radius:10px;padding:8px 10px;background:#fff;color:var(--ink)}
+textarea{width:100%;min-height:200px;line-height:1.6}
+.frame{display:inline-block;background:#fff;border:2px solid var(--orange-soft);border-radius:10px;padding:6px 10px;margin:4px 4px 4px 0;cursor:pointer;font-size:.92rem}
+.frame:hover{border-color:var(--orange)}
+.chk label{display:block;padding:4px 0}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.progressbar{height:10px;background:#eadcc8;border-radius:5px;overflow:hidden;margin:8px 0 2px}
+.progressbar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#6fbf7a);width:0;transition:width .4s}
+.note{font-size:.88rem;color:var(--muted)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--brown);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
+.toast.on{opacity:1}
+.lane-only{display:none}
+body.lane-emerging .lane-only.emerging,body.lane-progressing .lane-only.progressing,body.lane-challenge .lane-only.challenge{display:block}
+.two{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+@media(max-width:720px){.two,.match{grid-template-columns:1fr}.flash{height:200px}}
+.lanebadge{font-size:.78rem;font-weight:800;color:#fff;background:var(--green);border-radius:999px;padding:2px 10px}
+.rubric td:first-child{font-weight:700;color:var(--brown)}
+ul.tight{margin:6px 0;padding-left:20px}ul.tight li{margin:3px 0}
+.big{font-size:1.2rem}
+
+.memgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.mem{perspective:800px;height:84px;cursor:pointer}.mem .in{position:relative;width:100%;height:100%;transition:transform .4s;transform-style:preserve-3d}
+.mem.up .in,.mem.ok .in{transform:rotateY(180deg)}
+.mem .mf,.mem .mb{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:grid;place-items:center;font-weight:800;box-shadow:var(--shadow)}
+.mem .mf{background:var(--orange);color:#fff;font-size:1.6rem}.mem .mb{transform:rotateY(180deg);background:#fff;border:3px solid var(--orange-soft);font-size:.95rem;text-align:center;padding:4px}
+.mem .mb.es{border-color:#c9b6e8;background:#f6f1fc}.mem.ok .mb{border-color:var(--green);background:var(--green-soft)}
+.scrbox{margin-top:12px}.scrword{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.scrword span{display:inline-grid;place-items:center;width:44px;height:50px;background:var(--gold);border-radius:10px;font-weight:800;font-size:1.3rem;color:var(--brown);box-shadow:0 3px 0 #c9922a}
+#scrIn{font-size:1.1rem;width:220px}#scrIn.bad{animation:shake .35s;border-color:var(--red)}
+.dashbox{margin-top:12px;min-height:200px}.flags{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.flagbtn{border:3px solid var(--orange-soft);background:#fff;border-radius:14px;padding:12px;font-weight:800;font-size:1rem;color:var(--brown);display:flex;align-items:center;gap:10px}
+.flagbtn span{font-size:2rem}.flagbtn.ok{border-color:var(--green);background:var(--green-soft)}.flagbtn.no{border-color:var(--red);background:#fde4df}
+.palette{display:flex;flex-wrap:wrap;gap:6px}.sw{border:2px solid #eadcc8;background:#fff;border-radius:999px;padding:4px 10px 4px 6px;font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:6px;color:var(--brown)}
+.sw.on{border-color:var(--brown);background:var(--orange-soft)}.sw .dotc{width:20px;height:20px;border-radius:50%;background:var(--c);border:2px solid #2b1d12}
+.picwrap{background:#fff;border:3px solid var(--orange-soft);border-radius:14px;padding:8px;max-width:640px}
+.picwrap svg{width:100%;height:auto;display:block}.picwrap .reg{cursor:pointer}.picwrap .reg:hover{opacity:.85}
+.picwrap svg.hideNums .nums{display:none}
+@media(max-width:600px){.memgrid{grid-template-columns:repeat(4,1fr)}.mem{height:70px}.mem .mb{font-size:.8rem}}
+
+.testhead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;border-bottom:2px solid var(--orange-soft);padding-bottom:8px;margin-bottom:12px;font-weight:800;color:var(--brown)}
+.testbody{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}@media(max-width:760px){.testbody{grid-template-columns:1fr}}
+.tpass{background:#fffdf8;border:2px solid #eadcc8;border-radius:12px;padding:14px 16px;font-size:1rem;line-height:1.7;max-height:520px;overflow:auto}
+.tpass h4,.tq h4{margin:0 0 8px;color:var(--brown)}.pn{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--orange-soft);color:var(--brown);font-size:.7rem;font-weight:800;margin-right:8px}
+.dir{font-weight:800;color:var(--ink);margin:0 0 10px}.qtext{font-weight:700;margin:6px 0}
+.ropt{display:block;border:2px solid #eadcc8;border-radius:10px;padding:8px 10px;margin:6px 0;cursor:pointer;font-weight:600}.ropt.on{border-color:var(--orange);background:var(--orange-soft)}
+.hotp{line-height:2}.hot{cursor:pointer;border-radius:6px;padding:2px 4px}.hot:hover{background:#fff1d6}.hot.on{background:var(--gold);font-weight:700}
+.chip{display:inline-block;background:#fff;border:2px solid var(--orange);border-radius:999px;padding:4px 10px;margin:4px;cursor:pointer;font-size:.9rem;font-weight:600}.chip.on{background:var(--orange);color:#fff}.chip.placed{border-color:var(--green);background:var(--green-soft);font-size:.82rem}
+.clcols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.clcol{min-height:120px;border:2px dashed var(--orange);border-radius:12px;padding:8px;cursor:pointer}.clcol b{display:block;margin-bottom:6px;color:var(--brown)}
+.ordl{padding-left:22px}.ordl li{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border:2px solid #eadcc8;border-radius:10px;padding:6px 10px;margin:6px 0}.arr button{border:0;background:var(--orange-soft);border-radius:6px;padding:2px 8px;margin-left:3px;font-weight:800}
+.dotn{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;border:2px solid #eadcc8;margin:0 2px;font-size:.8rem;font-weight:700;cursor:pointer;background:#fff}.dotn.has{background:var(--orange-soft);border-color:var(--orange)}.dotn.cur{border-color:var(--brown);background:var(--brown);color:#fff}
+.fb{margin-top:12px;border-radius:10px;padding:10px 12px}.fb.ok{background:var(--green-soft);border:2px solid var(--green)}.fb.no{background:#fde4df;border:2px solid var(--red)}
+select.inl{display:inline-block;padding:2px 6px;font-size:1rem;margin:0 2px}select.inl.ok{border-color:var(--green);background:var(--green-soft)}select.inl.no{border-color:var(--red);background:#fde4df}
+.picbox{max-width:480px;border:3px solid var(--orange-soft);border-radius:12px;overflow:hidden;margin:8px 0}.picbox svg{display:block;width:100%}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}@media(max-width:600px){.notes{grid-template-columns:1fr}}
+.notecard{background:#fff9e8;border:2px solid var(--gold);border-radius:10px;padding:8px 12px;font-size:.92rem}.notecard ul{margin:4px 0 0;padding-left:18px}
+
+.gboard{width:100%;height:auto;background:#fffdf8;border:3px solid var(--orange-soft);border-radius:14px;margin:8px 0}
+.gb-top{display:flex;flex-wrap:wrap;gap:6px}.team{border:3px solid var(--c);border-radius:999px;padding:3px 12px;font-weight:800;font-size:.9rem;color:var(--brown);background:#fff}.team.on{background:var(--c);color:#fff}
+.gb-ctrl{min-height:90px}.die{display:inline-grid;place-items:center;width:52px;height:52px;border:3px solid var(--brown);border-radius:12px;font-size:1.6rem;font-weight:900;background:#fff}
+.gcard{background:#fff;border:3px solid var(--gold);border-radius:14px;padding:12px 16px;box-shadow:var(--shadow)}.gcard .big{margin:6px 0 10px}
+</style>
+</head>
+<body class="lane-progressing">
+<header><div class="wrap brand">
+ <h1>🦃 Thanksgiving Around the World<small>Storm Studio EL Module · __GRADE__ · Laurel High School</small></h1>
+ <div class="controls">
+  <span class="seg" id="laneSeg">
+   <button data-lane="emerging">Emerging</button><button data-lane="progressing" class="on">Progressing</button><button data-lane="challenge">Challenge</button>
+  </span>
+  <button class="toggle" id="esBtn" title="Show Spanish support">ES apoyo</button>
+  <button class="toggle" id="audioBtn" title="Read-aloud on/off">🔊 Audio</button>
+ </div>
+</div></header>
+<nav><div class="wrap" id="nav"></div></nav>
+<main><div class="wrap">
+
+<!-- HOME -->
+<section class="view on" id="v-home">
+ <div class="card">
+  <h2>Welcome · Bienvenidos</h2>
+  <p class="note">Other grade levels: <a href="../" style="color:var(--green);font-weight:800">Stormthanksgiving hub ↗</a></p>
+  <p class="big">Essential question: <span class="eq">Why do people around the world give thanks, and how are their celebrations alike and different?</span></p>
+  <p class="es">Pregunta esencial: ¿Por qué la gente de todo el mundo da gracias y en qué se parecen y se diferencian sus celebraciones?</p>
+  <div class="progressbar"><i id="pbar"></i></div><div class="note" id="ptext">0 of 7 parts complete</div>
+  <h3>What you will do</h3>
+  <ol>
+   <li><b>Words</b> — learn 12 key words with flashcards and a matching game.</li>
+   <li><b>Around the World</b> — read about 9 countries and answer questions.</li>
+   <li><b>Compare</b> — sort what is the same and different; build a comparison table.</li>
+   <li><b>Listen &amp; Speak</b> — listen to a story and interview a partner.</li>
+   <li><b>Write</b> — write a comparison paragraph with sentence frames.</li>
+   <li><b>Quiz</b> — 10 questions, graded instantly.</li>
+   <li><b>ELPA21 Practice</b> — a reading test and four writing tasks in the real test formats.</li>
+   <li><b>Arcade</b> and <b>Color the Picture</b> — games and a coloring page for extra practice (early finishers!).</li>
+  </ol>
+  <h3>Your can-do statement <span class="lanebadge" data-lanename></span></h3>
+  <p id="candoText"></p>
+  <h3>How to use this page</h3>
+  <ul class="tight">
+   <li>Pick your level at the top: <b>Emerging</b> (shorter texts, more support), <b>Progressing</b>, or <b>Challenge</b> (longer texts, academic language).</li>
+   <li>Tap <b>ES apoyo</b> to show Spanish support. Tap <b>🔊</b> buttons to hear text read aloud. <button class="btn sec sm" onclick="speak(&quot;Hello! Happy Thanksgiving. If you can hear this, read-aloud works.&quot;)">🔊 Test my sound</button> <span class="note">No sound? Turn up the volume (and the silent switch on iPhone), or open this page in Chrome or Safari instead of inside another app.</span></li>
+   <li>Your progress is saved on this device. Green dots in the menu show finished parts.</li>
+  </ul>
+ </div>
+</section>
+
+<!-- LESSON 1 -->
+<section class="view" id="v-l1">
+ <div class="card">
+  <h2>1 · Words of Gratitude</h2>
+  <div id="meta1"></div>
+  <p>Tap a card to flip it. Tap 🔊 to hear the word. <span class="es">Toca la tarjeta para voltearla.</span></p>
+  <div class="grid" id="flash"></div>
+  <h3>Matching game · Juego de emparejar</h3>
+  <p class="note">Tap a word, then tap its meaning. Green = correct.</p>
+  <div class="match" id="match"></div>
+  <p class="score" id="matchScore"></p>
+  <h3>Say it · Dilo</h3>
+  <p>Choose 3 words. Tell a partner a sentence with each one. Frame: <span class="frame">In my country, a <b>tradition</b> is ____.</span> <span class="frame">I feel <b>gratitude</b> for ____.</span> <span class="frame">My family <b>gathers</b> when ____.</span></p>
+ </div>
+</section>
+
+<!-- LESSON 2 -->
+<section class="view" id="v-l2">
+ <div class="card">
+  <h2>2 · Days of Thanks Around the World</h2>
+  <div id="meta2"></div>
+  <p>Tap a country. Read, listen, and answer the three questions. Finish at least <b><span id="needN"></span></b> countries (Challenge: all <span id="needAll"></span>). Green border = done.</p>
+  <div class="grid" id="cgrid"></div>
+ </div>
+ <div class="card" id="cview" style="display:none"></div>
+</section>
+
+<!-- LESSON 3 -->
+<section class="view" id="v-l3">
+ <div class="card">
+  <h2>3 · Same or Different?</h2>
+  <div id="meta3"></div>
+  <h3>Part A · Sort the statements</h3>
+  <p>Is this true for <b>most</b> celebrations in this module (Same) or only for <b>some</b> (Different)?</p>
+  <div id="sort"></div>
+  <div class="row"><button class="btn" id="sortCheck">Check my answers</button><span class="score" id="sortScore"></span></div>
+  <h3>Part B · Build a comparison table</h3>
+  <div class="row"><label>Country 1 <select id="cmpA"></select></label><label>Country 2 <select id="cmpB"></select></label></div>
+  <div id="cmpTable" style="margin-top:12px"></div>
+  <h3>Part C · Talk it out</h3>
+  <p>With a partner, say two sentences using the table:</p>
+  <div class="lane-only emerging"><span class="frame">Both ____ and ____ have ____.</span> <span class="frame">In ____ people eat ____, but in ____ people eat ____.</span></div>
+  <div class="lane-only progressing"><span class="frame">____ and ____ are similar because both ____.</span> <span class="frame">However, ____ is on ____, while ____ is on ____.</span></div>
+  <div class="lane-only challenge"><span class="frame">Although ____ and ____ differ in ____, they share ____.</span> <span class="frame">The most significant difference is ____, which suggests ____.</span></div>
+ </div>
+</section>
+
+<!-- LESSON 4 -->
+<section class="view" id="v-l4">
+ <div class="card">
+  <h2>4 · Listen &amp; Speak</h2>
+  <div id="meta4"></div>
+  <h3>Part A · Listening (ELPA21 practice)</h3>
+  <p>A student named Min-ji talks about her two favorite holidays. Listen <b>two times</b>, then answer. <span class="es">Escucha dos veces y contesta.</span></p>
+  <div class="row"><button class="btn" id="playL">▶ Play</button><button class="btn sec" id="stopL">■ Stop</button><span class="note" id="playCount">Plays: 0 / 2</span>
+   <button class="btn sec sm" id="showScript">Show text (after answering)</button></div>
+  <div class="reading" id="script" style="display:none;margin-top:10px"></div>
+  <div id="lq"></div>
+  <div class="row"><button class="btn" id="lCheck">Check answers</button><span class="score" id="lScore"></span></div>
+  <h3>Part B · Partner interview</h3>
+  <p>Ask your partner. Write their answers in your notebook, then switch.</p>
+  <ol>
+   <li>What is a holiday your family celebrates? When is it?</li>
+   <li>What food do you eat? Who makes it?</li>
+   <li>Who gathers for the holiday?</li>
+   <li>What is one custom or tradition on that day?</li>
+   <li>What are you thankful for this year?</li>
+  </ol>
+  <div class="lane-only emerging"><b>Answer frames:</b> <span class="frame">My family celebrates ____ in ____.</span> <span class="frame">We eat ____.</span> <span class="frame">I am thankful for ____.</span></div>
+  <div class="lane-only progressing"><b>Answer frames:</b> <span class="frame">My family celebrates ____, which is on ____.</span> <span class="frame">Usually my ____ makes ____, and everyone ____.</span> <span class="frame">This year I am thankful for ____ because ____.</span></div>
+  <div class="lane-only challenge"><b>Report back:</b> <span class="frame">My partner's family celebrates ____. Unlike my family, they ____. We both ____.</span></div>
+  <p class="note">Optional: record your report-back on Snorkl for feedback.</p>
+  <h3>Part C · Speaking self-check</h3>
+  <div class="chk" id="spkChk">
+   <label><input type="checkbox"> I used at least 3 words from Lesson 1.</label>
+   <label><input type="checkbox"> I spoke in complete sentences.</label>
+   <label><input type="checkbox"> I asked my partner a follow-up question.</label>
+   <label><input type="checkbox"> I used past tense for something that already happened.</label>
+  </div>
+ </div>
+</section>
+
+<!-- LESSON 5 -->
+<section class="view" id="v-l5">
+ <div class="card">
+  <h2>5 · Write: Two Days of Thanks</h2>
+  <div id="meta5"></div>
+  <p><b>Prompt:</b> Choose two celebrations from this module (or one from the module and one from your own family). Explain how they are similar and different. Use at least 4 words from Lesson 1 and evidence from the readings.</p>
+  <p class="es">Elige dos celebraciones. Explica en qué se parecen y en qué se diferencian. Usa al menos 4 palabras de la Lección 1.</p>
+  <h3>Sentence frames <span class="lanebadge" data-lanename></span> — tap to add</h3>
+  <div id="frames"></div>
+  <textarea id="writing" placeholder="Start writing here..."></textarea>
+  <div class="row" style="margin-top:8px"><span class="note" id="wc">0 words · 0 vocabulary words</span><button class="btn sec sm" id="copyW">Copy my writing</button><button class="btn sec sm" id="clearW">Clear</button></div>
+  <h3>Checklist before you submit</h3>
+  <div class="chk" id="wChk">
+   <label><input type="checkbox"> Topic sentence names both celebrations.</label>
+   <label><input type="checkbox"> At least 2 similarities and 2 differences.</label>
+   <label><input type="checkbox"> Evidence from the texts (dates, foods, customs).</label>
+   <label><input type="checkbox"> Transition words: both, however, while, in addition.</label>
+   <label><input type="checkbox"> 4+ vocabulary words (they turn green in the counter).</label>
+   <label><input type="checkbox"> Capital letters and periods checked.</label>
+  </div>
+  <p class="note">Target length — <span id="targets"></span>.</p>
+  <button class="btn green" id="doneW">Mark writing complete</button>
+ </div>
+</section>
+
+<!-- ARCADE -->
+<section class="view" id="v-arcade">
+ <div class="card">
+  <h2>🕹️ Arcade</h2>
+  <p>Four games to practice the words and the countries. Best scores are saved on this device. <span class="es">Tres juegos para practicar.</span></p>
+  <div class="row" id="gameTabs"><button class="btn" data-g="memory">🃏 Memory Match</button><button class="btn sec" data-g="scramble">🔤 Word Scramble</button><button class="btn sec" data-g="dash">🏁 Flag Dash</button><button class="btn sec" data-g="board">🎲 Board Game</button></div>
+ </div>
+ <div class="card" id="g-memory">
+  <h3 style="margin-top:0">Memory Match — English ↔ Español</h3>
+  <p class="note">Flip two cards. Match the English word with its Spanish word. Fewer moves = better score.</p>
+  <div class="row"><button class="btn sm" id="memNew">New game</button><span class="note" id="memStat">Moves: 0 · Pairs: 0 / 8</span><span class="note" id="memBest"></span></div>
+  <div class="memgrid" id="memGrid"></div>
+ </div>
+ <div class="card" id="g-scramble" style="display:none">
+  <h3 style="margin-top:0">Word Scramble</h3>
+  <p class="note">Unscramble the word. Use the hints if you need them. 10 words per round.</p>
+  <div class="row"><button class="btn sm" id="scrNew">New round</button><span class="note" id="scrStat">Word 0 / 10 · Score 0</span><span class="note" id="scrBest"></span></div>
+  <div class="scrbox" id="scrBox"></div>
+ </div>
+ <div class="card" id="g-dash" style="display:none">
+  <h3 style="margin-top:0">Flag Dash — 60 seconds</h3>
+  <p class="note">Read the clue. Tap the correct flag as fast as you can. +10 for correct, streak bonus +5.</p>
+  <div class="row"><button class="btn sm" id="dashStart">Start</button><span class="note" id="dashStat">Time: 60 · Score 0 · Streak 0</span><span class="note" id="dashBest"></span></div>
+  <div class="dashbox" id="dashBox"><p class="big" style="text-align:center;color:var(--muted)">Press Start</p></div>
+ </div>
+</section>
+
+
+ <div class="card" id="g-board" style="display:none">
+  <h3 style="margin-top:0">🎲 Race to the Feast — board game for 2–4 teams</h3>
+  <p class="note">One Chromebook per group. Roll, move, draw the card for your space, and answer as a team. First team to the feast wins.</p>
+  <div class="row"><label>Teams <select id="gPlayers"><option>2</option><option>3</option><option selected>4</option></select></label><button class="btn sm" onclick="gameNew()">New game</button></div>
+  <div class="gb-area" style="margin-top:10px"></div>
+ </div>
+
+<!-- COLOR -->
+<section class="view" id="v-color">
+ <div class="card">
+  <h2>🎨 Color the Picture</h2>
+  <p>Pick a color, then tap a part of the picture. Follow the number key, or color it your way. Say the color name in English as you tap! <span class="es">Elige un color y toca una parte del dibujo. Di el color en inglés.</span></p>
+  <div class="row" id="picTabs"><button class="btn" data-p="turkey">🦃 Turkey</button><button class="btn sec" data-p="harvest">🎃 Harvest Table</button><button class="btn sec" data-p="moon">🌕 Moon &amp; Lantern</button></div>
+  <h3>Color key · Clave de colores</h3>
+  <div class="palette" id="palette"></div>
+  <div class="row" style="margin:8px 0"><button class="btn sec sm" id="picReset">Clear picture</button><button class="btn sec sm" id="picKey">Hide numbers</button><span class="note">Tip: a region with a number should get that number's color.</span></div>
+  <div class="picwrap" id="picWrap"></div>
+  <h3>Talk about your picture</h3>
+  <div class="lane-only emerging"><span class="frame">The ____ is ____.</span> <span class="frame">I see a ____ ____.</span></div>
+  <div class="lane-only progressing"><span class="frame">I colored the ____ ____ because ____.</span> <span class="frame">In the picture, the ____ is a symbol of ____.</span></div>
+  <div class="lane-only challenge"><span class="frame">This picture represents ____ in ____. The ____ symbolizes ____, while the ____ reminds me of ____.</span></div>
+ </div>
+</section>
+
+<!-- ELPA21 -->
+<section class="view" id="v-elpa">
+ <div class="card">
+  <h2>📝 ELPA21 Practice — Reading &amp; Writing</h2>
+  <p>These tasks look and work like the real ELPA21 test (<span id="elpaBand"></span>): a passage on the left, the question on the right, and the same item types — multiple choice, <b>select all</b>, two-part evidence questions, hot text, sorting into a table, and putting steps in order. Writing has the four test task types. <span class="es">Estas tareas se parecen al examen ELPA21 real.</span></p>
+  <div class="row" id="elpaTabs"><button class="btn" data-m="reading">📖 Reading (8 items)</button><button class="btn sec" data-m="writing">✏️ Writing (4 tasks)</button></div>
+  <p class="note">Test tips: read the directions twice · for "select all," check every answer that is true · for two-part items, Part B must prove Part A · in writing, count your sentences before you submit.</p>
+ </div>
+ <div class="card" id="elpaBox"></div>
+</section>
+
+<!-- QUIZ -->
+<section class="view" id="v-quiz">
+ <div class="card">
+  <h2>Quiz · 10 questions</h2>
+  <p>Answer every question, then tap Check. You can try again.</p>
+  <div id="quiz"></div>
+  <div class="row"><button class="btn" id="qCheck">Check quiz</button><button class="btn sec" id="qReset">Try again</button><span class="score" id="qScore"></span></div>
+ </div>
+</section>
+
+<!-- TEACHER -->
+<section class="view" id="v-teacher">
+ <div class="card">
+  <h2>Teacher Guide</h2>
+  <p><b>Audience:</b> <span id="audience"></span> <b>Time:</b> five 30–45-minute segments; fits one 90-minute block per day over 3 days, or a full week at 30 minutes/day. <b>Devices:</b> 1:1 Chromebooks; read-aloud uses the browser's built-in voices.</p>
+  <h3>Walkthrough posting block</h3>
+  <table class="cmp">
+   <tr><th>Content objective</th><td>Students will describe and compare how communities around the world celebrate days of thanks, citing dates, foods, and customs from informational texts.</td></tr>
+   <tr><th>Language objective</th><td>Students will read, listen to, discuss, and write about holiday traditions using comparison language (both, while, however) and 12 target vocabulary words.</td></tr>
+   <tr><th>MS ELP / ELPA21</th><td>ELP 1, 2, 3, 4, 7, 8, 9, 10 (see each lesson's box for the specific standards)</td></tr>
+   <tr><th>MS CCRS ELA</th><td id="elaRow"></td></tr>
+   <tr><th>Can-do statements</th><td><b>Emerging:</b> <span id="cdE"></span><br><b>Progressing:</b> <span id="cdP"></span><br><b>Challenge:</b> <span id="cdC"></span></td></tr>
+  </table>
+  <h3>Pacing (90-minute block × 3 days)</h3>
+  <table class="cmp">
+   <tr><th>Day</th><th>Minutes</th><th>Activity</th><th>ELPA21 domain</th></tr>
+   <tr><td rowspan="3">1</td><td>15</td><td>Launch: essential question; students share one family holiday (turn and talk). Preview can-dos.</td><td>Speaking</td></tr>
+   <tr><td>35</td><td>Lesson 1 flashcards + matching; "Say it" with partner.</td><td>Speaking · Reading</td></tr>
+   <tr><td>40</td><td>Lesson 2: <span id="cplan"></span>.</td><td>Reading</td></tr>
+   <tr><td rowspan="3">2</td><td>10</td><td>Vocabulary warm-up: quick-draw a word, partner guesses.</td><td>Speaking</td></tr>
+   <tr><td>40</td><td>Lesson 2 continued: 2+ more countries (Challenge finishes all 9). Exit ticket: one new fact.</td><td>Reading · Writing</td></tr>
+   <tr><td>40</td><td>Lesson 3: sort, comparison table, partner sentences.</td><td>Speaking · Writing</td></tr>
+   <tr><td rowspan="3">3</td><td>30</td><td>Lesson 4: listening passage (2 plays) + interview.</td><td>Listening · Speaking</td></tr>
+   <tr><td>45</td><td>Lesson 5: writing with frames; peer checklist.</td><td>Writing</td></tr>
+   <tr><td>15</td><td>Quiz + reflection: "One tradition I would add to my family's holiday is..."</td><td>Reading</td></tr>
+  </table>
+  <p class="note"><b>ELPA21 Practice:</b> use the Reading set (8 items, auto-scored, all-or-nothing on select-all and sequence items as on the real test) as a Day 2 exit task, and the Writing tasks (Edit a Text, Write About a Picture, Write an Email, Write an Explanation from Notes) across Days 3–4; students self-score with the 0–4 guide, then you score and conference.</p>
+  <h3>Differentiation by lane</h3>
+  <table class="cmp">
+   <tr><th></th><th>Emerging (L1–2)</th><th>Progressing (L3–4)</th><th>Challenge (L4–5)</th></tr>
+   <tr><td>Reading</td><td><span class="rl" data-i="0"></span>, ES glossary on, read-aloud, fewer countries</td><td><span class="rl" data-i="1"></span>, cite evidence</td><td><span class="rl" data-i="2"></span> with academic vocabulary, all countries, analyze how traditions change</td></tr>
+   <tr><td>Speaking</td><td>Frames with blanks; yes/no then wh- questions</td><td>Frames with transitions; follow-up questions</td><td>Report-back paraphrasing partner; compare to own family</td></tr>
+   <tr><td>Writing</td><td>5–6 sentences from frames; word bank</td><td>8–10-sentence paragraph; 4 vocabulary words</td><td>3 paragraphs; thesis; 6+ vocabulary words; evidence from two texts</td></tr>
+   <tr><td>Newcomer support</td><td colspan="3">Pair with a bilingual buddy; use the GIF flashcards and vocabulary video for pre-teaching; accept labeled drawings of two celebrations with the Emerging frames as the writing product.</td></tr>
+  </table>
+  <h3>Writing rubric (4-point, ELPA21-aligned)</h3>
+  <table class="cmp rubric">
+   <tr><th>Criterion</th><th>4 — Exceeds</th><th>3 — Meets</th><th>2 — Approaching</th><th>1 — Beginning</th></tr>
+   <tr><td>Ideas &amp; evidence</td><td>Clear comparison; 3+ specific details from texts for each celebration</td><td>Clear comparison; 2 details each</td><td>Some comparison; details general or from one text</td><td>Lists facts without comparing</td></tr>
+   <tr><td>Organization</td><td>Topic sentence, logical order, transitions, closing</td><td>Topic sentence and closing; most transitions</td><td>Partial structure; few transitions</td><td>No clear structure</td></tr>
+   <tr><td>Vocabulary</td><td>6+ target words used accurately</td><td>4–5 target words</td><td>2–3 target words</td><td>0–1 target words</td></tr>
+   <tr><td>Conventions</td><td>Errors do not interfere; varied sentences</td><td>Minor errors; complete sentences</td><td>Errors sometimes interfere</td><td>Errors often interfere</td></tr>
+  </table>
+  <h3>Answer keys</h3>
+  <details class="tbox"><summary>Country questions, sort activity, listening, and quiz</summary><div id="keys"></div></details>
+  <h3>Background notes for the teacher</h3>
+  <ul class="tight">
+   <li>Chuseok and the Mid-Autumn Festival share the same lunar date; Vietnam's Tết Trung Thu is the same festival. Dates shift yearly (mid-September to early October).</li>
+   <li>Erntedankfest is usually the first Sunday of October, though some regions celebrate on the last Sunday of September.</li>
+   <li>Brazil's Dia de Ação de Graças is official (1949) but not a public holiday. Liberia's is the first Thursday of November. Puerto Rico follows the U.S. date.</li>
+   <li>The Challenge text for the U.S. mentions the National Day of Mourning; be ready to discuss multiple perspectives on the holiday's history.</li>
+   <li>Other harvest-gratitude festivals you can add for extension: Pongal (Tamil Nadu, India, January), Homowo (Ga people, Ghana, August), Sukkot (Jewish, autumn).</li>
+  </ul>
+ </div>
+</section>
+
+</div></main>
+<div class="toast" id="toast"></div>
+<script>
+__DATA__
+</script>
+<script>
+// ===== state =====
+const S = {lane:"progressing", es:false, audio:true, done:{}, read:{}, writing:""};
+try{ const saved = JSON.parse(localStorage.getItem("tgw-state")||"null"); if(saved) Object.assign(S, saved); }catch(e){}
+function save(){ try{ localStorage.setItem("tgw-state", JSON.stringify(S)); }catch(e){} }
+function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("on"); setTimeout(()=>t.classList.remove("on"),1800); }
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+// ===== speech =====
+let _voices=[]; function loadVoices(){ try{ _voices=speechSynthesis.getVoices()||[]; }catch(e){} }
+if("speechSynthesis" in window){ loadVoices(); try{ speechSynthesis.onvoiceschanged=loadVoices; }catch(e){} setTimeout(loadVoices,500); setTimeout(loadVoices,2000); }
+function pickVoice(lang){ const l=(lang||"en").slice(0,2).toLowerCase(); const vs=_voices.filter(v=>v.lang&&v.lang.toLowerCase().startsWith(l)); if(!vs.length) return null;
+  return vs.find(v=>/Google|Samantha|Daniel|Paulina|Monica|Natural|Premium|Enhanced/i.test(v.name)) || vs.find(v=>v.localService) || vs[0]; }
+function speak(text, lang){
+  if(!S.audio) { toast("Audio is turned off — tap 🔊 Audio at the top"); return; }
+  if(!("speechSynthesis" in window)) { toast("Read-aloud is not available in this app — open the page in Chrome or Safari"); return; }
+  try{
+    const go=()=>{ const u=new SpeechSynthesisUtterance(text); u.lang=lang||"en-US"; u.rate=0.9; u.volume=1; const v=pickVoice(lang); if(v) u.voice=v;
+      let started=false; u.onstart=()=>{ started=true; }; u.onerror=(e)=>{ if(e.error!=="interrupted"&&e.error!=="canceled") toast("Read-aloud error: "+e.error); };
+      setTimeout(()=>{ if(!started && !speechSynthesis.speaking) toast("No voice played. Check your volume or silent switch, or open the page in Chrome."); },2500);
+      speechSynthesis.speak(u); try{ speechSynthesis.resume(); }catch(e){} };
+    if(speechSynthesis.speaking||speechSynthesis.pending){ speechSynthesis.cancel(); setTimeout(go,80); } else go();
+  }catch(e){ toast("Read-aloud failed on this device"); }
+}
+function spk(text, lang){ return `<button class="speak" title="Listen" onclick="event.stopPropagation();speak(${JSON.stringify(text)},'${lang||"en-US"}')">🔊</button>`; }
+
+// ===== nav =====
+const VIEWS = [["home","🏠 Home"],["l1","1 Words"],["l2","2 Around the World"],["l3","3 Compare"],["l4","4 Listen & Speak"],["l5","5 Write"],["arcade","🕹️ Arcade"],["color","🎨 Color"],["elpa","📝 ELPA21 Practice"],["quiz","✔ Quiz"],["teacher","👩‍🏫 Teacher"]];
+const PARTS = ["l1","l2","l3","l4","l5","quiz","sort"];
+function renderNav(){
+  document.getElementById("nav").innerHTML = VIEWS.map(([id,l])=>`<button data-v="${id}" class="${location.hash==="#"+id||(!location.hash&&id==="home")?"on":""}"><span class="dot ${S.done[id]?"done":""}"></span>${l}</button>`).join("");
+  document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{ location.hash = b.dataset.v; });
+  const n = ["l1","l2","l3","l4","l5","elpa","quiz"].filter(k=>S.done[k]).length;
+  document.getElementById("pbar").style.width = (n/7*100)+"%";
+  document.getElementById("ptext").textContent = `${n} of 7 parts complete`;
+}
+function showView(){
+  let id = (location.hash||"#home").slice(1); if(!document.getElementById("v-"+id)) id="home";
+  document.querySelectorAll("section.view").forEach(s=>s.classList.toggle("on", s.id==="v-"+id));
+  renderNav(); window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", showView);
+function markDone(k){ if(!S.done[k]){ S.done[k]=true; save(); renderNav(); toast("Part complete ✔"); } }
+
+// ===== lane / toggles =====
+function setLane(l){ S.lane=l; save(); document.body.className = "lane-"+l+(S.es?" showES":""); document.querySelectorAll("#laneSeg button").forEach(b=>b.classList.toggle("on", b.dataset.lane===l));
+  document.querySelectorAll("[data-lanename]").forEach(e=>e.textContent=l[0].toUpperCase()+l.slice(1));
+  document.getElementById("candoText").textContent = CANDO[l]; renderFrames(); if(currentCountry) openCountry(currentCountry); }
+document.querySelectorAll("#laneSeg button").forEach(b=>b.onclick=()=>setLane(b.dataset.lane));
+document.getElementById("esBtn").onclick=()=>{ S.es=!S.es; save(); document.getElementById("esBtn").classList.toggle("on",S.es); document.body.classList.toggle("showES",S.es); };
+document.getElementById("audioBtn").onclick=()=>{ S.audio=!S.audio; save(); document.getElementById("audioBtn").classList.toggle("on",S.audio); if(!S.audio) try{speechSynthesis.cancel()}catch(e){} toast(S.audio?"Read-aloud on":"Read-aloud off"); };
+document.getElementById("esBtn").classList.toggle("on",S.es); document.getElementById("audioBtn").classList.toggle("on",S.audio);
+
+// ===== lesson meta boxes =====
+function metaBox(n){ const m=LESSON_META[n]; return `<details class="tbox"><summary>Objectives &amp; standards (for posting)</summary>
+ <p><b>Content objective:</b> ${m.content}</p><p><b>Language objective:</b> ${m.language}</p>
+ <p>${m.elp.map(x=>`<span class="pill g">${x}</span>`).join("")}</p><p>${m.ela.map(x=>`<span class="pill">${x}</span>`).join("")}</p>
+ <p><b>Can-do (<span data-lanename></span>):</b> <span class="cando-inline"></span></p></details>`; }
+for(let i=1;i<=5;i++) document.getElementById("meta"+i).innerHTML = metaBox(i);
+const _setLaneOrig = setLane;
+function refreshCando(){ document.querySelectorAll(".cando-inline").forEach(e=>e.textContent=CANDO[S.lane]); }
+
+// ===== Lesson 1: flashcards + matching =====
+document.getElementById("flash").innerHTML = VOCAB.map((v,i)=>`<div class="flash" onclick="this.classList.toggle('flip')"><div class="in">
+ <div class="face f"><div class="ic">${v.icon}</div><div class="w">${v.en} ${spk(v.en)}</div><div class="es">${v.es} ${spk(v.es,"es-US")}</div><div class="note">${v.pos}</div></div>
+ <div class="face b"><div class="w">${v.en}</div><div>${v.def}</div><div style="margin-top:6px;opacity:.85"><i>${v.ex}</i></div><div style="margin-top:6px">${spk(v.def+". "+v.ex)}</div></div></div></div>`).join("");
+let matchSel=null, matchDone=0;
+function renderMatch(){
+  const words = VOCAB.slice(0,8); const defs = words.map((v,i)=>({i,t:v.def})).sort(()=>Math.random()-.5);
+  document.getElementById("match").innerHTML = `<div>${words.map((v,i)=>`<div class="mi" data-w="${i}">${v.icon} ${v.en}</div>`).join("")}</div><div>${defs.map(d=>`<div class="mi" data-d="${d.i}">${d.t}</div>`).join("")}</div>`;
+  matchDone=0; matchSel=null; document.getElementById("matchScore").textContent="";
+  document.querySelectorAll("#match .mi").forEach(el=>el.onclick=()=>{
+    if(el.classList.contains("ok")) return;
+    if(el.dataset.w!==undefined){ document.querySelectorAll("#match [data-w]").forEach(x=>x.classList.remove("sel")); el.classList.add("sel"); matchSel=el; return; }
+    if(!matchSel) { toast("Tap a word first"); return; }
+    if(el.dataset.d===matchSel.dataset.w){ el.classList.add("ok"); matchSel.classList.add("ok"); matchSel.classList.remove("sel"); matchSel=null; matchDone++;
+      if(matchDone===words.length){ document.getElementById("matchScore").textContent="All 8 matched! 🎉"; markDone("l1"); } }
+    else { el.classList.add("bad"); setTimeout(()=>el.classList.remove("bad"),400); }
+  });
+}
+renderMatch();
+
+// ===== Lesson 2: countries =====
+let currentCountry=null;
+function renderCGrid(){ document.getElementById("cgrid").innerHTML = COUNTRIES.map(c=>`<div class="ccard ${S.read[c.id]?"read":""}" onclick="openCountry('${c.id}')"><div class="fl">${c.flag}</div><div class="nm">${c.name}</div><div class="rg">${c.region}</div></div>`).join(""); }
+function boldVocab(t){ const forms=[]; VOCAB.forEach(v=>{ const base=v.en.replace(/ /g,"\\s"); const stem=v.en.replace(/e$/,""); forms.push({v,re:"(?:"+base+"s?|"+stem+"(?:ed|ing|es|s)?)"}); });
+  forms.sort((a,b)=>b.v.en.length-a.v.en.length); const re=new RegExp("\\b("+forms.map(f=>f.re).join("|")+")\\b","gi"); const seen=new Set();
+  return t.replace(re,(m)=>{ const f=forms.find(f=>new RegExp("^"+f.re+"$","i").test(m)); if(!f||seen.has(f.v.en)) return m; seen.add(f.v.en); return `<b class="v" title="${f.v.def.replace(/"/g,"&quot;")} (${f.v.es})">${m}</b>`; }); }
+function openCountry(id){
+  currentCountry=id; const c=COUNTRIES.find(x=>x.id===id); const text=c[S.lane];
+  const v=document.getElementById("cview"); v.style.display="block";
+  v.innerHTML = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${c.flag} ${c.name}</h2><span class="lanebadge">${S.lane[0].toUpperCase()+S.lane.slice(1)}</span></div>
+   <div class="facts"><div class="fact"><b>When</b>${c.date}</div><div class="fact"><b>Food</b>${c.food}</div><div class="fact"><b>Who</b>${c.who}</div><div class="fact"><b>Activities</b>${c.acts}</div></div>
+   <div class="row" style="margin-bottom:8px"><button class="btn sec sm" onclick="speak(${JSON.stringify(text)})">🔊 Read to me</button><button class="btn sec sm" onclick="speechSynthesis.cancel()">■ Stop</button><span class="note">Hover or tap red words for meanings.</span></div>
+   <div class="reading">${boldVocab(text)}</div>
+   <h3>Check your understanding</h3>
+   <p class="note lane-only progressing">Answer, then tell a partner: "The text says..."</p>
+   <p class="note lane-only challenge">After checking, write one sentence explaining how this holiday is different from U.S. Thanksgiving.</p>
+   <div id="cq">${c.qs.map((q,qi)=>`<div class="q"><p>${qi+1}. ${q.q} ${spk(q.q)}</p>${q.o.map((o,oi)=>`<button class="opt" data-q="${qi}" data-o="${oi}">${o}</button>`).join("")}</div>`).join("")}</div>
+   <div class="row"><button class="btn" id="cqCheck">Check answers</button><span class="score" id="cqScore"></span><button class="btn sec" onclick="document.getElementById('cview').style.display='none';currentCountry=null;window.scrollTo(0,0)">← Back to countries</button></div>`;
+  wireMC("#cq", c.qs, "#cqScore", ()=>{ S.read[id]=true; save(); renderCGrid(); const need = S.lane==="challenge"?BAND.needAll:BAND.need; if(Object.keys(S.read).length>=need) markDone("l2"); });
+  document.getElementById("cqCheck").onclick = ()=>checkMC("#cq", c.qs, "#cqScore");
+  v.scrollIntoView({behavior:"smooth"});
+}
+// generic multiple choice helpers
+const mcCallbacks = {};
+function wireMC(sel, qs, scoreSel, onPass){ mcCallbacks[sel]=onPass; document.querySelectorAll(sel+" .opt").forEach(b=>b.onclick=()=>{ document.querySelectorAll(sel+` .opt[data-q="${b.dataset.q}"]`).forEach(x=>x.classList.remove("on")); b.classList.add("on"); }); }
+function checkMC(sel, qs, scoreSel){
+  let right=0, answered=0;
+  qs.forEach((q,qi)=>{ const sel1=document.querySelector(sel+` .opt[data-q="${qi}"].on`); document.querySelectorAll(sel+` .opt[data-q="${qi}"]`).forEach(x=>x.classList.remove("ok","no"));
+    if(sel1){ answered++; if(+sel1.dataset.o===q.a){ right++; sel1.classList.add("ok"); } else { sel1.classList.add("no"); document.querySelector(sel+` .opt[data-q="${qi}"][data-o="${q.a}"]`).classList.add("ok"); } } });
+  const out=document.querySelector(scoreSel);
+  if(answered<qs.length){ out.textContent=`Answer all ${qs.length} questions first (${answered}/${qs.length}).`; return; }
+  out.textContent = `${right} / ${qs.length} correct` + (right===qs.length?" 🎉":"");
+  if(right>=Math.ceil(qs.length*0.7) && mcCallbacks[sel]) mcCallbacks[sel](right);
+}
+renderCGrid();
+
+// ===== Lesson 3: sort + compare =====
+document.getElementById("sort").innerHTML = SORT_ITEMS.map((s,i)=>`<div class="sortrow" data-i="${i}"><span>${s.t} ${spk(s.t)}</span><span class="bs"><button data-k="same">Same</button><button data-k="diff">Different</button></span></div>`).join("");
+document.querySelectorAll(".sortrow .bs button").forEach(b=>b.onclick=()=>{ b.parentElement.querySelectorAll("button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); });
+document.getElementById("sortCheck").onclick=()=>{ let right=0,ans=0; document.querySelectorAll(".sortrow").forEach(r=>{ const on=r.querySelector("button.on"); r.classList.remove("ok","no"); if(on){ ans++; const ok=on.dataset.k===SORT_ITEMS[+r.dataset.i].k; r.classList.add(ok?"ok":"no"); if(ok) right++; } });
+  const o=document.getElementById("sortScore"); if(ans<SORT_ITEMS.length){ o.textContent=`Choose Same or Different for every statement (${ans}/${SORT_ITEMS.length}).`; return; } o.textContent=`${right} / ${SORT_ITEMS.length} correct`; if(right>=8) markDone("l3"); };
+const selA=document.getElementById("cmpA"), selB=document.getElementById("cmpB");
+selA.innerHTML=selB.innerHTML=COUNTRIES.map(c=>`<option value="${c.id}">${c.flag} ${c.name}</option>`).join(""); selB.value="korea";
+function renderCmp(){ const a=COUNTRIES.find(c=>c.id===selA.value), b=COUNTRIES.find(c=>c.id===selB.value);
+  document.getElementById("cmpTable").innerHTML=`<table class="cmp"><tr><th></th><th>${a.flag} ${a.name}</th><th>${b.flag} ${b.name}</th></tr>
+  ${[["When",a.date,b.date],["Food",a.food,b.food],["Who gathers",a.who,b.who],["Activities",a.acts,b.acts]].map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}</table>`; }
+selA.onchange=selB.onchange=renderCmp; renderCmp();
+
+// ===== Lesson 4: listening =====
+let plays=0;
+document.getElementById("playL").onclick=()=>{ if(plays>=2){ toast("You have used both plays. Answer the questions."); return; } plays++; document.getElementById("playCount").textContent=`Plays: ${plays} / 2`; speak(LISTENING.text); };
+document.getElementById("stopL").onclick=()=>{ try{speechSynthesis.cancel()}catch(e){} };
+document.getElementById("script").textContent=LISTENING.text;
+document.getElementById("showScript").onclick=()=>{ const s=document.getElementById("script"); s.style.display=s.style.display==="none"?"block":"none"; };
+document.getElementById("lq").innerHTML=LISTENING.qs.map((q,qi)=>`<div class="q"><p>${qi+1}. ${q.q}</p>${q.o.map((o,oi)=>`<button class="opt" data-q="${qi}" data-o="${oi}">${o}</button>`).join("")}</div>`).join("");
+wireMC("#lq", LISTENING.qs, "#lScore", ()=>{});
+document.getElementById("lCheck").onclick=()=>{ checkMC("#lq", LISTENING.qs, "#lScore"); const t=document.getElementById("lScore").textContent; if(/^[45] \//.test(t)) markDone("l4"); };
+
+// ===== Lesson 5: writing =====
+const ta=document.getElementById("writing"); ta.value=S.writing||"";
+function renderFrames(){ document.getElementById("frames").innerHTML=FRAMES[S.lane].map(f=>`<span class="frame" onclick="addFrame(${JSON.stringify(f)})">${f}</span>`).join(""); refreshCando(); }
+function addFrame(f){ ta.value += (ta.value && !ta.value.endsWith("\n") ? " " : "") + f + " "; ta.focus(); countWords(); }
+function countWords(){ const t=ta.value; const words=t.trim()?t.trim().split(/\s+/).length:0; const used=VOCAB.filter(v=>new RegExp("\\b"+v.en.split(" ")[0].replace(/e$/,""),"i").test(t));
+  document.getElementById("wc").innerHTML=`${words} words · <span style="color:${used.length>=4?'var(--green)':'inherit'};font-weight:700">${used.length} vocabulary words</span>${used.length?": "+used.map(u=>u.en).join(", "):""}`; S.writing=t; save(); }
+ta.addEventListener("input", countWords); countWords();
+document.getElementById("copyW").onclick=()=>{ try{ navigator.clipboard.writeText(ta.value).then(()=>toast("Copied — paste it into Google Classroom")).catch(()=>{ ta.select(); toast("Select all and copy with Ctrl+C"); }); }catch(e){ ta.select(); toast("Select all and copy with Ctrl+C"); } };
+document.getElementById("clearW").onclick=()=>{ ta.value=""; countWords(); };
+document.getElementById("doneW").onclick=()=>{ const words=ta.value.trim()?ta.value.trim().split(/\s+/).length:0; const min=BAND.minWords[S.lane]; const checks=[...document.querySelectorAll("#wChk input")].filter(c=>c.checked).length;
+  if(words<min){ toast(`Keep going — aim for at least ${min} words (you have ${words}).`); return; } if(checks<6){ toast("Finish the checklist first."); return; } markDone("l5"); };
+
+// ===== Quiz =====
+function renderQuiz(){ document.getElementById("quiz").innerHTML=QUIZ.map((q,qi)=>`<div class="q"><p>${qi+1}. ${q.q} ${spk(q.q)}</p>${q.o.map((o,oi)=>`<button class="opt" data-q="${qi}" data-o="${oi}">${o}</button>`).join("")}</div>`).join(""); wireMC("#quiz", QUIZ, "#qScore", ()=>markDone("quiz")); document.getElementById("qScore").textContent=""; }
+renderQuiz();
+document.getElementById("qCheck").onclick=()=>checkMC("#quiz", QUIZ, "#qScore");
+document.getElementById("qReset").onclick=renderQuiz;
+
+// ===== Teacher keys =====
+document.getElementById("cdE").textContent=CANDO.emerging; document.getElementById("cdP").textContent=CANDO.progressing; document.getElementById("cdC").textContent=CANDO.challenge;
+document.getElementById("keys").innerHTML = `<p><b>Countries:</b> ${COUNTRIES.map(c=>`${c.flag} ${c.qs.map(q=>"ABCD"[q.a]).join("")}`).join(" · ")}</p>
+ <p><b>Sort:</b> Same = ${SORT_ITEMS.filter(s=>s.k==="same").map(s=>'"'+s.t+'"').join(", ")}. All others = Different.</p>
+ <p><b>Listening:</b> ${LISTENING.qs.map(q=>"ABCD"[q.a]).join(" ")}</p>
+ <p><b>Quiz:</b> ${QUIZ.map((q,i)=>(i+1)+"-"+"ABCD"[q.a]).join(", ")}</p>`;
+
+// ===================== ARCADE =====================
+S.best = S.best || {};
+function setBest(k, v, better){ if(S.best[k]===undefined || better(v,S.best[k])){ S.best[k]=v; save(); toast("New best score! 🏆"); } }
+document.querySelectorAll("#gameTabs button").forEach(b=>b.onclick=()=>{ document.querySelectorAll("#gameTabs button").forEach(x=>x.className="btn sec"); b.className="btn"; ["memory","scramble","dash","board"].forEach(g=>document.getElementById("g-"+g).style.display=g===b.dataset.g?"block":"none"); });
+
+// --- Memory Match ---
+let mem={open:[],moves:0,pairs:0,lock:false};
+function memNew(){
+  const pick=[...VOCAB].sort(()=>Math.random()-.5).slice(0,8);
+  const cards=[]; pick.forEach((v,i)=>{ cards.push({k:i,t:v.en,l:"en"}); cards.push({k:i,t:v.es,l:"es"}); });
+  cards.sort(()=>Math.random()-.5); mem={open:[],moves:0,pairs:0,lock:false};
+  document.getElementById("memGrid").innerHTML=cards.map((c,i)=>`<div class="mem" data-k="${c.k}" data-i="${i}"><div class="in"><div class="mf">?</div><div class="mb ${c.l}">${c.t}</div></div></div>`).join("");
+  document.querySelectorAll(".mem").forEach(el=>el.onclick=()=>memFlip(el)); memStat();
+}
+function memStat(){ document.getElementById("memStat").textContent=`Moves: ${mem.moves} · Pairs: ${mem.pairs} / 8`; document.getElementById("memBest").textContent=S.best.memory!==undefined?`Best: ${S.best.memory} moves`:""; }
+function memFlip(el){
+  if(mem.lock||el.classList.contains("up")||el.classList.contains("ok")) return;
+  el.classList.add("up"); mem.open.push(el);
+  if(mem.open.length===2){ mem.moves++; mem.lock=true; const [a,b]=mem.open;
+    if(a.dataset.k===b.dataset.k){ setTimeout(()=>{ a.classList.add("ok"); b.classList.add("ok"); mem.open=[]; mem.lock=false; mem.pairs++; memStat(); const enEl=[a,b].map(x=>x.querySelector(".mb")).find(x=>x.classList.contains("en")); if(enEl) speak(enEl.textContent); if(mem.pairs===8){ setBest("memory",mem.moves,(n,o)=>n<o); toast(`Finished in ${mem.moves} moves!`); } },350); }
+    else setTimeout(()=>{ a.classList.remove("up"); b.classList.remove("up"); mem.open=[]; mem.lock=false; },800);
+    memStat(); }
+}
+document.getElementById("memNew").onclick=memNew; memNew();
+
+// --- Word Scramble ---
+let scr={list:[],i:0,score:0,hint:0};
+function shuffleWord(w){ const a=w.replace(/ /g,"").split(""); let s; do{ s=[...a].sort(()=>Math.random()-.5).join(""); }while(s===a.join("") && a.length>2); return s; }
+function scrNew(){ scr={list:[...VOCAB].sort(()=>Math.random()-.5).slice(0,Math.min(10,VOCAB.length)),i:0,score:0,hint:0}; scrShow(); }
+function scrShow(){
+  document.getElementById("scrStat").textContent=`Word ${Math.min(scr.i+1,scr.list.length)} / ${scr.list.length} · Score ${scr.score}`; document.getElementById("scrBest").textContent=S.best.scramble!==undefined?`Best: ${S.best.scramble}`:"";
+  if(scr.i>=scr.list.length){ document.getElementById("scrBox").innerHTML=`<p class="big">Round over! Score: <b>${scr.score}</b> / ${scr.list.length*10}</p>`; setBest("scramble",scr.score,(n,o)=>n>o); return; }
+  const v=scr.list[scr.i]; scr.hint=0;
+  document.getElementById("scrBox").innerHTML=`<div class="scrword">${shuffleWord(v.en).toUpperCase().split("").map(ch=>`<span>${ch}</span>`).join("")}</div>
+   <div class="row"><input type="text" id="scrIn" placeholder="Type the word" autocomplete="off"><button class="btn" id="scrGo">Check</button><button class="btn sec" id="scrHint">Hint</button><button class="btn sec" id="scrSkip">Skip</button></div>
+   <p class="note" id="scrMsg">${v.en.includes(" ")?"(two words — type them with a space)":""}</p>`;
+  const inp=document.getElementById("scrIn"); inp.focus();
+  const check=()=>{ if(inp.value.trim().toLowerCase()===v.en){ const pts=Math.max(2,10-scr.hint*3); scr.score+=pts; speak(v.en); document.getElementById("scrMsg").innerHTML=`<b style="color:var(--green)">Correct! +${pts}</b> — ${v.en} = ${v.es}`; setTimeout(()=>{ scr.i++; scrShow(); },900); } else { inp.classList.add("bad"); setTimeout(()=>inp.classList.remove("bad"),400); document.getElementById("scrMsg").textContent="Try again."; } };
+  document.getElementById("scrGo").onclick=check; inp.onkeydown=e=>{ if(e.key==="Enter") check(); };
+  document.getElementById("scrHint").onclick=()=>{ scr.hint++; const h=[`Spanish: ${v.es}`,`Meaning: ${v.def}`,`Starts with "${v.en[0].toUpperCase()}"`][Math.min(scr.hint-1,2)]; document.getElementById("scrMsg").textContent=h+(scr.hint===1?" (−3 points)":""); };
+  document.getElementById("scrSkip").onclick=()=>{ scr.i++; scrShow(); };
+}
+document.getElementById("scrNew").onclick=scrNew; scrNew();
+
+// --- Flag Dash ---
+const DASH_CLUES=[
+ ["Songpyeon rice cakes","korea"],["Mooncakes and lanterns","china"],["Pavochón and coquito","pr"],["Erntedankfest harvest crown","germany"],
+ ["Labor Thanksgiving Day, November 23","japan"],["First Thursday of November, founded in 1847","liberia"],["Second Monday of October","canada"],
+ ["Fourth Thursday of November, Macy's parade","usa"],["Dia de Ação de Graças — not a day off","brazil"],["Children thank police officers and nurses","japan"],
+ ["Families visit ancestors' graves","korea"],["Butter tarts and fall leaves","canada"],["Church altar decorated with bread and fruit","germany"],
+ ["Roast chicken and spicy green beans","liberia"],["Round moon = family together","china"],["Turkey, stuffing, and pumpkin pie","usa"],
+ ["Arroz con gandules at the feast","pr"],["Ambassador Joaquim Nabuco's idea","brazil"],["Three-day holiday on the lunar calendar","korea"],["Tết Trung Thu is the same festival","china"],
+];
+let dash={t:60,score:0,streak:0,timer:null,cur:null};
+function dashStat(){ document.getElementById("dashStat").textContent=`Time: ${dash.t} · Score ${dash.score} · Streak ${dash.streak}`; document.getElementById("dashBest").textContent=S.best.dash!==undefined?`Best: ${S.best.dash}`:""; }
+function dashNext(){
+  const clue=DASH_CLUES[Math.floor(Math.random()*DASH_CLUES.length)]; if(dash.cur&&clue[0]===dash.cur[0]) return dashNext(); dash.cur=clue;
+  const right=COUNTRIES.find(c=>c.id===clue[1]); const others=COUNTRIES.filter(c=>c.id!==clue[1]).sort(()=>Math.random()-.5).slice(0,3); const opts=[right,...others].sort(()=>Math.random()-.5);
+  document.getElementById("dashBox").innerHTML=`<p class="big" style="text-align:center;font-weight:800">${clue[0]}</p><div class="flags">${opts.map(c=>`<button class="flagbtn" data-id="${c.id}"><span>${c.flag}</span>${c.name}</button>`).join("")}</div>`;
+  document.querySelectorAll(".flagbtn").forEach(b=>b.onclick=()=>{ if(!dash.timer) return; if(b.dataset.id===clue[1]){ dash.streak++; dash.score+=10+(dash.streak>=3?5:0); b.classList.add("ok"); } else { dash.streak=0; b.classList.add("no"); document.querySelector(`.flagbtn[data-id="${clue[1]}"]`).classList.add("ok"); } dashStat(); setTimeout(dashNext,450); });
+}
+document.getElementById("dashStart").onclick=()=>{ if(dash.timer) clearInterval(dash.timer); dash={t:60,score:0,streak:0,timer:null,cur:null}; dashStat(); dashNext();
+  dash.timer=setInterval(()=>{ dash.t--; dashStat(); if(dash.t<=0){ clearInterval(dash.timer); dash.timer=null; document.getElementById("dashBox").innerHTML=`<p class="big" style="text-align:center">⏱️ Time! Final score: <b>${dash.score}</b></p>`; setBest("dash",dash.score,(n,o)=>n>o); } },1000); };
+dashStat();
+
+// ===================== COLOR THE PICTURE =====================
+const PALETTE=[["#d7372a","red","rojo"],["#f0862c","orange","anaranjado"],["#f5c843","yellow","amarillo"],["#7b4a22","brown","marrón / café"],["#3f8f4a","green","verde"],["#3a7bd5","blue","azul"],["#8a4fbf","purple","morado"],["#f29bb5","pink","rosado"],["#f4e3c1","tan","beige"],["#ffffff","white","blanco"],["#2b2b2b","black","negro"],["#9ad3f0","light blue","celeste"]];
+let picColor=0, picName="turkey";
+S.pic=S.pic||{};
+// Each picture: list of regions {id, shape svg, n: key number (1-based index into PALETTE), lx, ly label pos}
+function feather(cx,cy,ang,n){ return {d:`M ${cx} ${cy} m ${-28*Math.cos(ang+Math.PI/2)} ${-28*Math.sin(ang+Math.PI/2)} a 28 52 ${ang*180/Math.PI+90} 1 0 ${56*Math.cos(ang+Math.PI/2)} ${56*Math.sin(ang+Math.PI/2)} a 28 52 ${ang*180/Math.PI+90} 1 0 ${-56*Math.cos(ang+Math.PI/2)} ${-56*Math.sin(ang+Math.PI/2)}`,n,lx:cx,ly:cy}; }
+function turkeyPic(){
+  const r=[]; r.push({shape:`<rect x="0" y="0" width="400" height="330"/>`,n:12,lx:50,ly:40,id:"sky"});
+  r.push({shape:`<ellipse cx="200" cy="345" rx="270" ry="55"/>`,n:5,lx:60,ly:325,id:"ground"});
+  r.push({shape:`<circle cx="345" cy="55" r="32"/>`,n:3,lx:345,ly:55,id:"sun"});
+  const cols=[1,2,3,4,2,1,3]; cols.forEach((n,i)=>{ const ang=-Math.PI/2+(i-3)*(Math.PI*0.95/6); const fx=200+100*Math.cos(ang), fy=195+100*Math.sin(ang);
+    r.push({shape:`<ellipse cx="${fx.toFixed(1)}" cy="${fy.toFixed(1)}" rx="28" ry="54" transform="rotate(${(ang*180/Math.PI+90).toFixed(1)} ${fx.toFixed(1)} ${fy.toFixed(1)})"/>`,n,lx:200+128*Math.cos(ang),ly:195+128*Math.sin(ang),id:"f"+i}); });
+  r.push({shape:`<ellipse cx="200" cy="240" rx="72" ry="58"/>`,n:4,lx:150,ly:238,id:"body"});
+  r.push({shape:`<ellipse cx="205" cy="258" rx="40" ry="30"/>`,n:9,lx:205,ly:262,id:"belly"});
+  r.push({shape:`<rect x="196" y="170" width="34" height="50" rx="17"/>`,n:4,lx:213,ly:200,id:"neck"});
+  r.push({shape:`<circle cx="215" cy="160" r="27"/>`,n:4,lx:204,ly:172,id:"head"});
+  r.push({shape:`<polygon points="238,160 256,167 238,175"/>`,n:2,lx:252,ly:179,id:"beak"});
+  r.push({shape:`<ellipse cx="232" cy="182" rx="6" ry="11"/>`,n:1,lx:232,ly:198,id:"wattle"});
+  r.push({shape:`<rect x="180" y="294" width="9" height="30"/><rect x="214" y="294" width="9" height="30"/>`,n:2,lx:201,ly:312,id:"legs"});
+  return {vb:"0 0 400 360",r,extra:`<circle cx="218" cy="152" r="5" fill="#fff" stroke="#2b1d12" stroke-width="2"/><circle cx="219" cy="153" r="2" fill="#2b1d12"/>`};
+}
+function harvestPic(){
+  const r=[];
+  r.push({shape:`<rect x="0" y="0" width="400" height="200"/>`,n:12,lx:40,ly:30,id:"wall"});
+  r.push({shape:`<rect x="0" y="200" width="400" height="120"/>`,n:4,lx:370,ly:300,id:"table"});
+  r.push({shape:`<ellipse cx="100" cy="190" rx="70" ry="50"/>`,n:2,lx:100,ly:195,id:"pumpkin"});
+  r.push({shape:`<rect x="92" y="130" width="16" height="22" rx="5"/>`,n:5,lx:100,ly:141,id:"stem"});
+  r.push({shape:`<path d="M 200 150 L 330 150 L 345 200 L 185 200 Z"/>`,n:9,lx:265,ly:175,id:"pie"});
+  r.push({shape:`<ellipse cx="265" cy="150" rx="65" ry="18"/>`,n:2,lx:265,ly:150,id:"filling"});
+  r.push({shape:`<ellipse cx="250" cy="250" rx="16" ry="45" transform="rotate(-25 250 250)"/>`,n:3,lx:250,ly:250,id:"corn1"});
+  r.push({shape:`<ellipse cx="300" cy="255" rx="16" ry="45" transform="rotate(20 300 255)"/>`,n:3,lx:300,ly:255,id:"corn2"});
+  r.push({shape:`<path d="M 220 295 q 10 -40 50 -30 q -10 40 -50 30 z"/>`,n:5,lx:245,ly:280,id:"husk"});
+  r.push({shape:`<path d="M 40 260 l 20 -30 l 10 20 l 25 -15 l -10 30 l 25 10 l -30 5 l 5 25 l -20 -15 l -20 15 l 5 -25 l -30 -5 l 25 -10 z"/>`,n:1,lx:60,ly:265,id:"leaf1"});
+  r.push({shape:`<path d="M 130 270 l 15 -25 l 8 15 l 20 -12 l -8 24 l 20 8 l -24 4 l 4 20 l -16 -12 l -16 12 l 4 -20 l -24 -4 l 20 -8 z"/>`,n:2,lx:145,ly:275,id:"leaf2"});
+  r.push({shape:`<rect x="350" y="60" width="40" height="150" rx="8"/>`,n:7,lx:370,ly:140,id:"curtain"});
+  return {vb:"0 0 400 320",r,extra:``};
+}
+function moonPic(){
+  const r=[];
+  r.push({shape:`<rect x="0" y="0" width="400" height="320"/>`,n:6,lx:40,ly:30,id:"sky"});
+  r.push({shape:`<circle cx="300" cy="80" r="50"/>`,n:3,lx:300,ly:80,id:"moon"});
+  r.push({shape:`<path d="M 0 320 L 0 250 Q 100 190 200 250 T 400 240 L 400 320 Z"/>`,n:5,lx:60,ly:290,id:"hills"});
+  r.push({shape:`<rect x="110" y="40" width="30" height="14" rx="4"/>`,n:3,lx:125,ly:47,id:"cap"});
+  r.push({shape:`<ellipse cx="125" cy="120" rx="48" ry="62"/>`,n:1,lx:125,ly:120,id:"lantern"});
+  r.push({shape:`<rect x="110" y="178" width="30" height="14" rx="4"/>`,n:3,lx:125,ly:185,id:"base"});
+  r.push({shape:`<rect x="115" y="192" width="20" height="40"/>`,n:2,lx:125,ly:212,id:"tassel"});
+  r.push({shape:`<circle cx="230" cy="265" r="34"/>`,n:4,lx:230,ly:265,id:"mooncake"});
+  r.push({shape:`<circle cx="230" cy="265" r="16"/>`,n:3,lx:230,ly:265,id:"center"});
+  r.push({shape:`<rect x="180" y="300" width="100" height="12" rx="6"/>`,n:10,lx:230,ly:306,id:"plate"});
+  r.push({shape:`<polygon points="40,110 46,124 60,126 50,136 52,150 40,143 28,150 30,136 20,126 34,124"/>`,n:3,lx:40,ly:132,id:"star1"});
+  r.push({shape:`<polygon points="350,180 355,191 366,192 358,200 360,212 350,206 340,212 342,200 334,192 345,191"/>`,n:3,lx:350,ly:197,id:"star2"});
+  return {vb:"0 0 400 320",r,extra:`<line x1="125" y1="0" x2="125" y2="40" stroke="#2b1d12" stroke-width="3"/><path d="M 95 105 q 30 20 60 0 M 95 135 q 30 20 60 0" fill="none" stroke="#2b1d12" stroke-width="2" opacity=".6"/>`};
+}
+const PICS={turkey:turkeyPic,harvest:harvestPic,moon:moonPic};
+function renderPalette(){ document.getElementById("palette").innerHTML=PALETTE.map((p,i)=>`<button class="sw ${i===picColor?"on":""}" data-i="${i}" style="--c:${p[0]}"><span class="dotc"></span><b>${i+1}</b> ${p[1]} <span class="es">· ${p[2]}</span></button>`).join("");
+  document.querySelectorAll(".sw").forEach(b=>b.onclick=()=>{ picColor=+b.dataset.i; renderPalette(); speak(PALETTE[picColor][1]); }); }
+function renderPic(){
+  const P=PICS[picName](); const fills=S.pic[picName]||{};
+  document.getElementById("picWrap").innerHTML=`<svg viewBox="${P.vb}" xmlns="http://www.w3.org/2000/svg" id="picSvg">${P.r.map(reg=>`<g class="reg" data-id="${reg.id}" fill="${fills[reg.id]||"#fff"}" stroke="#2b1d12" stroke-width="3" stroke-linejoin="round">${reg.shape}</g>`).join("")}${P.extra}
+   <g class="nums" pointer-events="none">${P.r.map(reg=>`<text x="${reg.lx}" y="${reg.ly+5}" text-anchor="middle" font-size="14" font-weight="800" fill="#2b1d12" stroke="#fff" stroke-width="3" paint-order="stroke">${reg.n}</text>`).join("")}</g></svg>`;
+  document.querySelectorAll("#picSvg .reg").forEach(g=>g.onclick=()=>{ g.setAttribute("fill",PALETTE[picColor][0]); S.pic[picName]=S.pic[picName]||{}; S.pic[picName][g.dataset.id]=PALETTE[picColor][0]; save(); });
+  document.getElementById("picSvg").classList.toggle("hideNums", hideNums);
+}
+let hideNums=false;
+document.querySelectorAll("#picTabs button").forEach(b=>b.onclick=()=>{ document.querySelectorAll("#picTabs button").forEach(x=>x.className="btn sec"); b.className="btn"; picName=b.dataset.p; renderPic(); });
+document.getElementById("picReset").onclick=()=>{ delete S.pic[picName]; save(); renderPic(); };
+document.getElementById("picKey").onclick=function(){ hideNums=!hideNums; this.textContent=hideNums?"Show numbers":"Hide numbers"; document.getElementById("picSvg").classList.toggle("hideNums",hideNums); };
+renderPalette(); renderPic();
+
+// ===================== ELPA21 PRACTICE =====================
+const W_RUBRIC = [["4","Fully addresses the task; well organized; varied sentences; details are specific and accurate; few errors."],["3","Addresses the task; organized; mostly complete sentences; some specific details; errors do not block meaning."],["2","Partly addresses the task; some organization; simple or repeated sentences; few details; errors sometimes block meaning."],["1","Minimal response; words or phrases; little organization; errors often block meaning."],["0","No response, off topic, or not in English."]];
+
+let elpaMode="reading", rIdx=0, rAns={}, rSubmitted=false, wIdx=0, wAns={};
+function elpaRender(){
+  const box=document.getElementById("elpaBox");
+  document.querySelectorAll("#elpaTabs button").forEach(b=>b.className="btn "+(b.dataset.m===elpaMode?"":"sec"));
+  if(elpaMode==="reading") renderReadingItem(box); else renderWritingTask(box);
+}
+function passageHTML(key){
+  if(key==="lit") return `<h4>Min-ji's Half-Moons</h4>${P_LIT.map((p,i)=>`<p><span class="pn">${i+1}</span>${p}</p>`).join("")}`;
+  if(key==="info") return `<h4>Erntedankfest: Germany's Harvest Thanks</h4>${P_INFO.map((p,i)=>`<p><span class="pn">${i+1}</span>${p}</p>`).join("")}`;
+  return `<h4>${P_PROC[0]}</h4>${P_PROC.slice(1).map(p=>`<p>${p}</p>`).join("")}`;
+}
+function renderReadingItem(box){
+  const it=R_ITEMS[rIdx], ans=rAns[rIdx];
+  let qh="";
+  if(it.type==="mc"||it.type==="vocab") qh=`<p class="qtext">${it.q}</p>`+it.o.map((o,i)=>`<label class="ropt ${ans===i?"on":""}"><input type="radio" name="r${rIdx}" ${ans===i?"checked":""} onchange="rSet(${i})"> ${o}</label>`).join("");
+  else if(it.type==="ms") qh=`<p class="qtext">${it.q}</p>`+it.o.map((o,i)=>`<label class="ropt ${(ans||[]).includes(i)?"on":""}"><input type="checkbox" ${(ans||[]).includes(i)?"checked":""} onchange="rToggle(${i})"> ${o}</label>`).join("");
+  else if(it.type==="twopart"){ const a=ans||{}; qh=`<p class="qtext">${it.qa}</p>`+it.oa.map((o,i)=>`<label class="ropt ${a.a===i?"on":""}"><input type="radio" name="ra${rIdx}" ${a.a===i?"checked":""} onchange="rSetTP('a',${i})"> ${o}</label>`).join("")+`<p class="qtext" style="margin-top:14px">${it.qb}</p>`+it.ob.map((o,i)=>`<label class="ropt ${a.b===i?"on":""}"><input type="radio" name="rb${rIdx}" ${a.b===i?"checked":""} onchange="rSetTP('b',${i})"> ${o}</label>`).join(""); }
+  else if(it.type==="hot"){ const sents=P_INFO[it.para].match(/[^.!?]+[.!?]+/g).map(s=>s.trim()); qh=`<p class="qtext">Paragraph ${it.para+1}:</p><div class="hotp">${sents.map((s,i)=>`<span class="hot ${ans===i?"on":""}" onclick="rSet(${i})">${s}</span> `).join("")}</div>`; }
+  else if(it.type==="classify"){ const a=ans||{}; qh=`<p class="qtext">Tap a detail, then tap a column.</p><div class="clsrc">${it.items.map((x,i)=>a[i]===undefined?`<span class="chip ${window._clsSel===i?"on":""}" onclick="clsPick(${i})">${x[0]}</span>`:"").join("")||"<span class='note'>All details placed.</span>"}</div>
+   <div class="clcols">${it.cols.map((c,ci)=>`<div class="clcol" onclick="clsDrop(${ci})"><b>${c}</b>${it.items.map((x,i)=>a[i]===ci?`<span class="chip placed" onclick="event.stopPropagation();clsUndo(${i})">${x[0]} ✕</span>`:"").join("")}</div>`).join("")}</div>`; }
+  else if(it.type==="order"){ const a=ans||it.steps.map((s,i)=>i); qh=`<p class="qtext">Use the arrows to move each step up or down.</p><ol class="ordl">${a.map((si,pos)=>`<li><span>${it.steps[si]}</span><span class="arr"><button onclick="ordMove(${pos},-1)">▲</button><button onclick="ordMove(${pos},1)">▼</button></span></li>`).join("")}</ol>`; }
+  let fb="";
+  if(rSubmitted){ const ok=rScore(it,ans); fb=`<div class="fb ${ok?"ok":"no"}"><b>${ok?"Correct":"Not correct"}</b> · ${rKeyText(it)}</div>`; }
+  box.innerHTML=`<div class="testhead"><span>Reading · Item ${rIdx+1} of ${R_ITEMS.length}</span><span class="pill">${it.domain}</span></div>
+   <div class="testbody"><div class="tpass">${passageHTML(it.passage)}</div><div class="tq"><p class="dir">${it.dir}</p>${qh}${fb}</div></div>
+   <div class="row" style="justify-content:space-between;margin-top:12px"><button class="btn sec" onclick="rNav(-1)" ${rIdx===0?"disabled":""}>◀ Back</button>
+   <span class="note">${R_ITEMS.map((x,i)=>`<span class="dotn ${rAns[i]!==undefined?"has":""} ${i===rIdx?"cur":""}" onclick="rIdx=${i};elpaRender()">${i+1}</span>`).join("")}</span>
+   ${rIdx<R_ITEMS.length-1?`<button class="btn" onclick="rNav(1)">Next ▶</button>`:`<button class="btn green" onclick="rSubmit()">${rSubmitted?"Score again":"Submit test"}</button>`}</div>
+   ${rSubmitted?`<p class="score">Score: ${R_ITEMS.filter((x,i)=>rScore(x,rAns[i])).length} / ${R_ITEMS.length}</p>`:""}`;
+}
+function rSet(v){ rAns[rIdx]=v; elpaRender(); }
+function rToggle(i){ const a=rAns[rIdx]||[]; rAns[rIdx]=a.includes(i)?a.filter(x=>x!==i):[...a,i]; elpaRender(); }
+function rSetTP(k,v){ rAns[rIdx]=Object.assign(rAns[rIdx]||{},{[k]:v}); elpaRender(); }
+function clsPick(i){ window._clsSel=i; elpaRender(); }
+function clsDrop(ci){ if(window._clsSel===undefined||window._clsSel===null) return; rAns[rIdx]=Object.assign(rAns[rIdx]||{},{[window._clsSel]:ci}); window._clsSel=null; elpaRender(); }
+function clsUndo(i){ delete rAns[rIdx][i]; elpaRender(); }
+function ordMove(pos,d){ const it=R_ITEMS[rIdx]; const a=rAns[rIdx]||it.steps.map((s,i)=>i); const j=pos+d; if(j<0||j>=a.length) return; [a[pos],a[j]]=[a[j],a[pos]]; rAns[rIdx]=a; elpaRender(); }
+function rNav(d){ rIdx=Math.max(0,Math.min(R_ITEMS.length-1,rIdx+d)); elpaRender(); }
+function rScore(it,a){ if(a===undefined) return false;
+  if(it.type==="mc"||it.type==="vocab"||it.type==="hot") return a===it.a;
+  if(it.type==="ms") return a.length===it.a.length && it.a.every(x=>a.includes(x));
+  if(it.type==="twopart") return a.a===it.aa && a.b===it.ab;
+  if(it.type==="classify") return it.items.every((x,i)=>a[i]===x[1]);
+  if(it.type==="order") return a.every((v,i)=>v===it.a[i]); return false; }
+function rKeyText(it){ if(it.type==="mc"||it.type==="vocab") return "Answer: "+it.o[it.a]; if(it.type==="ms") return "Answers: "+it.a.map(i=>it.o[i]).join(", "); if(it.type==="twopart") return "Part A: "+it.oa[it.aa]+" · Part B: "+it.ob[it.ab]; if(it.type==="hot") return "Answer: \""+P_INFO[it.para].match(/[^.!?]+[.!?]+/g)[it.a].trim()+"\""; if(it.type==="classify") return it.cols.map((c,ci)=>c+": "+it.items.filter(x=>x[1]===ci).length+" details").join(" · "); if(it.type==="order") return "Order: "+it.a.map(i=>it.steps[i]).join(" → "); }
+function rSubmit(){ const missing=R_ITEMS.map((x,i)=>rAns[i]===undefined||(x.type==="classify"&&Object.keys(rAns[i]).length<x.items.length)?i+1:null).filter(Boolean); if(missing.length){ toast("Answer item(s) "+missing.join(", ")+" first."); return; } rSubmitted=true; const sc=R_ITEMS.filter((x,i)=>rScore(x,rAns[i])).length; if(sc>=6) markDone("elpa"); rIdx=0; elpaRender(); window.scrollTo(0,0); }
+
+function renderWritingTask(box){
+  const t=W_TASKS[wIdx]; let body="";
+  if(t.type==="edit"){ const a=wAns.edit||{}; let k=0; body=`<div class="reading">${t.text.map(seg=>typeof seg==="string"?seg:(()=>{const i=k++; return `<select class="inl ${a[i]!==undefined?(a[i]===seg.a?"ok":"no"):""}" onchange="wEdit(${i},this.value)"><option value="">choose</option>${seg.o.map((o,oi)=>`<option value="${oi}" ${a[i]==oi?"selected":""}>${o}</option>`).join("")}</select>`;})()).join("")}</div>
+   <div class="row" style="margin-top:10px"><button class="btn" onclick="wEditCheck()">Check</button><span class="score" id="editScore"></span></div>`; }
+  else { const txt=wAns[t.type]||""; body=(t.svg?`<div class="picbox">${t.svg}</div>`:"")+(t.notes?`<div class="notes">${t.notes.map(n=>`<div class="notecard"><b>${n[0]}</b><ul>${n.slice(1).map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("")}</div>`:"")+
+   `<p class="note">Sentence starters (tap to add): ${t.frames.map(f=>`<span class="frame" onclick="wAdd('${t.type}',${JSON.stringify(f).replace(/"/g,"&quot;")})">${f}</span>`).join("")}</p>
+   <textarea id="wta" oninput="wAns['${t.type}']=this.value;wCount('${t.type}')">${txt}</textarea><div class="row" style="margin-top:6px"><span class="note" id="wcnt"></span><button class="btn sec sm" onclick="wCopy()">Copy</button><button class="btn green sm" onclick="wSubmit('${t.type}')">Submit for scoring guide</button></div>
+   ${t.checks?`<div class="chk" style="margin-top:8px"><b>Did you...</b>${t.checks.map(c=>`<label><input type="checkbox"> ${c}</label>`).join("")}</div>`:""}
+   <div id="wfb"></div>`; }
+  box.innerHTML=`<div class="testhead"><span>Writing · ${t.title}</span><span class="pill">${t.domain}</span></div><div class="tq" style="max-width:none"><p class="dir">${t.dir}</p>${body}</div>
+   <div class="row" style="justify-content:space-between;margin-top:12px"><button class="btn sec" onclick="wNav(-1)" ${wIdx===0?"disabled":""}>◀ Back</button><span class="note">${W_TASKS.map((x,i)=>`<span class="dotn ${i===wIdx?"cur":""}" onclick="wIdx=${i};elpaRender()">${i+1}</span>`).join("")}</span><button class="btn" onclick="wNav(1)" ${wIdx===W_TASKS.length-1?"disabled":""}>Next ▶</button></div>`;
+  if(t.type!=="edit") wCount(t.type);
+}
+function wNav(d){ wIdx=Math.max(0,Math.min(W_TASKS.length-1,wIdx+d)); elpaRender(); }
+function wEdit(i,v){ wAns.edit=Object.assign(wAns.edit||{},{[i]:v===""?undefined:+v}); }
+function wEditCheck(){ const segs=W_TASKS[0].text.filter(s=>typeof s!=="string"); const a=wAns.edit||{}; const right=segs.filter((s,i)=>a[i]===s.a).length; elpaRender(); document.getElementById("editScore").textContent=`${right} / ${segs.length} correct`; if(right===segs.length) toast("All verbs and words correct! ✔"); }
+function wAdd(k,f){ wAns[k]=(wAns[k]||"")+(wAns[k]&&!wAns[k].endsWith("\n")?" ":"")+f+" "; elpaRender(); document.getElementById("wta").focus(); }
+function wStats(txt){ const sents=(txt.match(/[^.!?]+[.!?]+/g)||[]).length; const words=txt.trim()?txt.trim().split(/\s+/).length:0; const caps=(txt.match(/(^|[.!?]\s+)[a-z]/g)||[]).length; return {sents,words,caps}; }
+function wCount(k){ const t=W_TASKS[wIdx]; const s=wStats(wAns[k]||""); const el=document.getElementById("wcnt"); if(el) el.textContent=`${s.words} words · ${s.sents} sentences (need ${t.min}+)`; }
+function wCopy(){ const v=document.getElementById("wta").value; try{ navigator.clipboard.writeText(v).then(()=>toast("Copied")).catch(()=>toast("Select and press Ctrl+C")); }catch(e){ toast("Select and press Ctrl+C"); } }
+function wSubmit(k){ const t=W_TASKS[wIdx]; const txt=wAns[k]||""; const s=wStats(txt);
+  const tips=[]; if(s.sents<t.min) tips.push(`Write at least ${t.min} sentences (you have ${s.sents}).`); if(s.caps) tips.push(`${s.caps} sentence(s) start with a lowercase letter.`); if(!/[.!?]\s*$/.test(txt.trim())&&txt.trim()) tips.push("End your last sentence with a period.");
+  const vocabUsed=VOCAB.filter(v=>new RegExp("\\b"+v.en.split(" ")[0].replace(/e$/,""),"i").test(txt)).map(v=>v.en); const trans=["both","however","while","in addition","also","but","because","first","then","finally"].filter(w=>new RegExp("\\b"+w+"\\b","i").test(txt));
+  document.getElementById("wfb").innerHTML=`<div class="fb ${tips.length?"no":"ok"}"><b>${tips.length?"Before you finish:":"Meets the length and conventions checks ✔"}</b>${tips.length?"<ul>"+tips.map(x=>`<li>${x}</li>`).join("")+"</ul>":""}
+   <p class="note">Vocabulary used: ${vocabUsed.join(", ")||"none yet"} · Transition words: ${trans.join(", ")||"none yet"}</p></div>
+   <h4>ELPA21-style scoring guide (score yourself, then your teacher scores)</h4><table class="cmp rubric">${W_RUBRIC.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table>
+   <div class="row" style="margin-top:8px">My score: ${[4,3,2,1].map(n=>`<button class="btn sec sm" onclick="toast('You scored yourself ${n}. Ask your teacher to score it too.')">${n}</button>`).join("")}</div>`;
+  if(!tips.length) markDone("elpa"); }
+document.querySelectorAll("#elpaTabs button").forEach(b=>b.onclick=()=>{ elpaMode=b.dataset.m; elpaRender(); });
+elpaRender();
+
+// ===================== BOARD GAME: Race to the Feast =====================
+const SPEAK_CARDS=[
+ "Say one thing you are thankful for and why. (2 sentences)","Name a food from your country and describe it. (2 sentences)","Tell a tradition in your family. Use the word 'tradition'.","Compare two holidays: 'Both ____. However, ____.'",
+ "Say three foods from the readings and their countries.","Use 'gather' and 'feast' in one sentence.","Explain what a lunar calendar is to a new student.","Tell the group what Chuseok and the Mid-Autumn Festival have in common.",
+ "Describe pavochón to someone who has never tasted it.","Why do you think Japan thanks workers on November 23? One sentence.","Say the Spanish for: harvest, gratitude, ancestor.","Invite the group to a holiday dinner. Say when, where, and what to bring.",
+ "Name a country from the readings and its date of thanks.","Use 'ancestor' in a sentence about Korea.","What is a symbol? Give an example from a holiday.","Tell about a time you helped someone. Use the past tense."];
+const CHANCE_CARDS=[
+ ["🥧 The pie is ready early! Move ahead 2.",2],["🦃 The turkey is still frozen. Go back 1.",-1],["🚆 Traffic on the way home for Chuseok. Lose a turn.",0,"skip"],["🍁 You helped set the table. Move ahead 1.",1],
+ ["🌕 Perfect full moon for the Mid-Autumn Festival. Move ahead 3.",3],["🧺 You donated the harvest food like in Germany. Move ahead 2.",2],["📞 Grandma called from Seoul — long chat. Go back 2.",-2],["🎉 Parade day! Everyone else moves back 1.",0,"others"],
+ ["🍚 Your songpyeon came out beautiful. Roll again!",0,"again"],["🧂 Forgot the adobo for the pavochón. Go back 1.",-1],["🪔 Children's lanterns light the way. Move ahead 1.",1],["🙏 You wrote a thank-you card to a school worker. Move ahead 2.",2]];
+const TRACK_N=30; const TYPES=["V","W","S","C"]; // vocab, world, speak, chance
+let G=null;
+function boardSpace(i){ // snake path on 10x3 grid, viewBox 1000x330
+  const row=Math.floor(i/10), col=i%10; const c=row%2?9-col:col; return [50+c*100, 60+row*105]; }
+function gameNew(){ const n=+document.getElementById("gPlayers").value; const names=["Red","Orange","Green","Blue"]; const cols=["#d7372a","#f0862c","#3f8f4a","#3a7bd5"];
+  G={players:Array.from({length:n},(_,i)=>({name:names[i],col:cols[i],pos:-1,skip:false,score:0})),turn:0,card:null,rolled:null,again:false,over:false}; gameRender(); }
+function gameRender(){
+  const el=document.getElementById("g-board"); if(!el) return;
+  if(!G){ el.querySelector(".gb-area").innerHTML="<p class='note'>Choose the number of teams and press New game.</p>"; return; }
+  const spaces=[]; for(let i=0;i<TRACK_N;i++){ const [x,y]=boardSpace(i); const t=i===TRACK_N-1?"F":TYPES[i%4]; const fill={V:"#fde3bf",W:"#dff0e2",S:"#fff1a8",C:"#f6e3f0",F:"#f2b644"}[t];
+    spaces.push(`<g><rect x="${x-40}" y="${y-36}" width="80" height="72" rx="14" fill="${fill}" stroke="#5b3a1e" stroke-width="3"/><text x="${x}" y="${y-10}" text-anchor="middle" font-size="22" font-weight="800" fill="#5b3a1e">${t==="F"?"🍽️":{V:"🔤",W:"🌍",S:"🗣️",C:"❓"}[t]}</text><text x="${x}" y="${y+22}" text-anchor="middle" font-size="13" font-weight="700" fill="#7a6552">${i+1}</text></g>`); }
+  // connectors
+  let path="M"; for(let i=0;i<TRACK_N;i++){ const [x,y]=boardSpace(i); path+=(i?" L":"")+x+" "+y; }
+  const tokens=G.players.map((p,i)=>{ const [x,y]=p.pos<0?[-30,60]:boardSpace(p.pos); const dx=[-18,18,-18,18][i], dy=[-14,-14,14,14][i]; return `<g class="tok"><circle cx="${x+dx}" cy="${y+dy}" r="13" fill="${p.col}" stroke="#fff" stroke-width="3"/><text x="${x+dx}" y="${y+dy+5}" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">${i+1}</text></g>`; }).join("");
+  const p=G.players[G.turn];
+  el.querySelector(".gb-area").innerHTML=`<div class="gb-top">${G.players.map((q,i)=>`<span class="team ${i===G.turn?"on":""}" style="--c:${q.col}">${i+1} ${q.name}: ${q.pos<0?"start":"space "+(q.pos+1)} · ⭐${q.score}</span>`).join("")}</div>
+   <svg viewBox="0 0 1000 330" class="gboard"><path d="${path}" fill="none" stroke="#c9a77e" stroke-width="40" stroke-linejoin="round" stroke-linecap="round"/>${spaces.join("")}${tokens}</svg>
+   <div class="gb-ctrl">${G.over?`<p class="big">🏆 <b>${G.over}</b> reached the feast! <button class="btn" onclick="gameNew()">Play again</button></p>`:
+    G.card?gameCardHTML():`<p class="big"><b style="color:${p.col}">Team ${G.turn+1} (${p.name})</b>, your turn. ${p.skip?"You lose this turn.":""}</p><div class="row"><button class="btn" onclick="gameRoll()">🎲 Roll</button><span class="die" id="die">${G.rolled||"–"}</span></div>`}</div>
+   <p class="note">🔤 Vocabulary · 🌍 Around the World · 🗣️ Speak (the group judges: complete sentences + the key word) · ❓ Chance. Correct = stay and earn a ⭐. Wrong = go back 1. First team to 🍽️ wins; most ⭐ breaks a tie.</p>`;
+}
+function gameRoll(){ const p=G.players[G.turn]; if(p.skip){ p.skip=false; gameNext(); return; } const r=1+Math.floor(Math.random()*6); G.rolled=r; let np=Math.min(TRACK_N-1,p.pos+r); p.pos=np;
+  if(np===TRACK_N-1){ G.over=`Team ${G.turn+1} (${p.name})`; gameRender(); return; }
+  const t=TYPES[np%4]; G.card=makeCard(t); gameRender(); }
+function makeCard(t){
+  if(t==="V"){ const v=VOCAB[Math.floor(Math.random()*VOCAB.length)]; const wrong=VOCAB.filter(x=>x!==v).sort(()=>Math.random()-.5).slice(0,3); const o=[v,...wrong].sort(()=>Math.random()-.5); return {t,q:`Which word means: <i>${v.def}</i>?`,o:o.map(x=>x.en),a:o.indexOf(v),say:v.en}; }
+  if(t==="W"){ const c=COUNTRIES[Math.floor(Math.random()*COUNTRIES.length)]; const q=c.qs[Math.floor(Math.random()*c.qs.length)]; return {t,q:`${c.flag} ${c.name}: ${q.q}`,o:q.o,a:q.a}; }
+  if(t==="S"){ return {t,q:SPEAK_CARDS[Math.floor(Math.random()*SPEAK_CARDS.length)]}; }
+  const c=CHANCE_CARDS[Math.floor(Math.random()*CHANCE_CARDS.length)]; return {t,q:c[0],move:c[1],fx:c[2]};
+}
+function gameCardHTML(){ const c=G.card; const head={V:"🔤 Vocabulary card",W:"🌍 Around the World card",S:"🗣️ Speaking card",C:"❓ Chance card"}[c.t];
+  if(c.t==="S") return `<div class="gcard"><b>${head}</b><p class="big">${c.q}</p><p class="note">The other teams decide: complete sentences, on topic, key word used?</p><div class="row"><button class="btn green" onclick="gameResolve(true)">👍 Good answer</button><button class="btn sec" onclick="gameResolve(false)">👎 Not yet</button></div></div>`;
+  if(c.t==="C") return `<div class="gcard"><b>${head}</b><p class="big">${c.q}</p><button class="btn" onclick="gameChance()">OK</button></div>`;
+  return `<div class="gcard"><b>${head}</b><p class="big">${c.q}</p>${c.o.map((o,i)=>`<button class="opt" onclick="gameAnswer(${i})">${o}</button>`).join("")}</div>`;
+}
+function gameAnswer(i){ const c=G.card; const ok=i===c.a; if(c.say) speak(c.say); toast(ok?"Correct! ⭐":"Not quite — the answer was: "+c.o[c.a]); gameResolve(ok); }
+function gameResolve(ok){ const p=G.players[G.turn]; if(ok) p.score++; else p.pos=Math.max(0,p.pos-1); G.card=null; gameNext(); }
+function gameChance(){ const c=G.card; const p=G.players[G.turn]; if(c.fx==="others"){ G.players.forEach((q,i)=>{ if(i!==G.turn) q.pos=Math.max(-1,q.pos-1); }); } else if(c.fx==="skip"){ p.skip=true; } else { p.pos=Math.max(0,Math.min(TRACK_N-1,p.pos+c.move)); }
+  G.card=null; if(c.fx==="again"){ G.rolled=null; gameRender(); return; } if(p.pos===TRACK_N-1){ G.over=`Team ${G.turn+1} (${p.name})`; gameRender(); return; } gameNext(); }
+function gameNext(){ G.turn=(G.turn+1)%G.players.length; G.rolled=null; gameRender(); }
+gameRender();
+
+// ===== band fill =====
+document.title=document.title.replace("__GRADE__",BAND.label); document.querySelector("header h1 small").innerHTML=document.querySelector("header h1 small").innerHTML.replace("__GRADE__",BAND.label);
+document.getElementById("needN").textContent=["zero","one","two","three","four","five","six","seven","eight","nine"][BAND.need]; document.getElementById("needAll").textContent=BAND.needAll;
+document.getElementById("targets").textContent=BAND.targets; document.getElementById("elpaBand").textContent=BAND.elpa; document.getElementById("audience").textContent=BAND.audience; document.getElementById("cplan").textContent=BAND.countriesPlan; document.getElementById("elaRow").textContent=BAND.ela;
+BAND.readLen.split(" · ").forEach((t,i)=>{ document.querySelector(`.rl[data-i="${i}"]`).textContent=t; });
+
+// ===== init =====
+setLane(S.lane); showView();
+
+</script>
+</body>
+</html>

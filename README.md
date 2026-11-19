@@ -1,8 +1,19 @@
-# Thanksgiving Around the World — Interactive EL Module (Grades 9–12)
+# Thanksgiving Around the World — Interactive EL Module for every ELPA21 grade band
 
-A single-file, Chromebook-friendly module for English learners, built under the **Storm Studio** model at Laurel High School (Laurel, MS). Open `index.html` or the GitHub Pages address — no installation, no accounts.
+Chromebook-friendly modules for English learners, built under the **Storm Studio** model at Laurel High School (Laurel, MS). No installation, no accounts.
 
-**Live module:** https://radan55.github.io/Stormthanksgiving/  
+**Hub (choose a grade level):** https://radan55.github.io/Stormthanksgiving/
+
+| Edition | ELPA21 band | Folder | Countries |
+|---|---|---|---|
+| K–1 | Kindergarten + Grade 1 | `k-1/` | 4 |
+| Grades 2–3 | 2–3 | `grades-2-3/` | 5 |
+| Grades 4–5 | 4–5 | `grades-4-5/` | 7 |
+| Grades 6–8 | 6–8 | `grades-6-8/` | 9 |
+| Grades 9–12 | 9–12 | `grades-9-12/` | 9 |
+
+Each edition has its own vocabulary, readings (three lanes), listening passage, quiz, writing frames, ELPA21-style practice items, can-do statements, and MS CCRS ELA standards for the band; the engine (`page.html`) is shared and built with `build.py` from `bands/data_*.js`.
+
 **Storm Board (agenda + Gratitude Trail):** https://radan55.github.io/Stormthanksgiving/board.html  
 **Conversation cards (PDF, B&W):** [thanksgiving_conversation_cards.pdf](thanksgiving_conversation_cards.pdf)
 
@@ -35,6 +46,6 @@ A single-file, Chromebook-friendly module for English learners, built under the 
 MS ELP Standards 1–4, 7–10 (ELPA21) · MS CCRS ELA RI.9-10.1/2/4/9, W.9-10.2/4/9, SL.9-10.1/2/4, L.9-10.4/6
 
 ## Editing
-All content lives in plain JavaScript objects near the top of the `<script>` block in `index.html` (`VOCAB`, `COUNTRIES`, `QUIZ`, `R_ITEMS`, `W_TASKS`, …). Edit the text, save, refresh.
+Content for each band lives in `src/bands/data_*.js` (`BAND`, `VOCAB`, `COUNTRIES`, `QUIZ`, `R_ITEMS`, `W_TASKS`, …); the engine is `src/page.html`. Run `python3 src/build.py` from `src/` to rebuild the editions, or edit a built `index.html` directly.
 
 © 2026 Richard A. Daniel, M.Ed. · EL Publishing · For classroom use.
