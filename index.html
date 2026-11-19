@@ -176,7 +176,7 @@ select.inl{display:inline-block;padding:2px 6px;font-size:1rem;margin:0 2px}sele
   <h3>How to use this page</h3>
   <ul class="tight">
    <li>Pick your level at the top: <b>Emerging</b> (shorter texts, more support), <b>Progressing</b>, or <b>Challenge</b> (longer texts, academic language).</li>
-   <li>Tap <b>ES apoyo</b> to show Spanish support. Tap <b>🔊</b> buttons to hear text read aloud (needs a Chromebook or phone with voices).</li>
+   <li>Tap <b>ES apoyo</b> to show Spanish support. Tap <b>🔊</b> buttons to hear text read aloud. <button class="btn sec sm" onclick="speak(&quot;Hello! Happy Thanksgiving. If you can hear this, read-aloud works.&quot;)">🔊 Test my sound</button> <span class="note">No sound? Turn up the volume (and the silent switch on iPhone), or open this page in Chrome or Safari instead of inside another app.</span></li>
    <li>Your progress is saved on this device. Green dots in the menu show finished parts.</li>
   </ul>
  </div>
@@ -587,15 +587,20 @@ function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 
 // ===== speech =====
+let _voices=[]; function loadVoices(){ try{ _voices=speechSynthesis.getVoices()||[]; }catch(e){} }
+if("speechSynthesis" in window){ loadVoices(); try{ speechSynthesis.onvoiceschanged=loadVoices; }catch(e){} setTimeout(loadVoices,500); setTimeout(loadVoices,2000); }
+function pickVoice(lang){ const l=(lang||"en").slice(0,2).toLowerCase(); const vs=_voices.filter(v=>v.lang&&v.lang.toLowerCase().startsWith(l)); if(!vs.length) return null;
+  return vs.find(v=>/Google|Samantha|Daniel|Paulina|Monica|Natural|Premium|Enhanced/i.test(v.name)) || vs.find(v=>v.localService) || vs[0]; }
 function speak(text, lang){
-  if(!S.audio || !("speechSynthesis" in window)) { if(!("speechSynthesis" in window)) toast("Read-aloud is not available on this device"); return; }
+  if(!S.audio) { toast("Audio is turned off — tap 🔊 Audio at the top"); return; }
+  if(!("speechSynthesis" in window)) { toast("Read-aloud is not available in this app — open the page in Chrome or Safari"); return; }
   try{
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text); u.lang = lang||"en-US"; u.rate = 0.9;
-    const v = speechSynthesis.getVoices().find(v=>v.lang && v.lang.toLowerCase().startsWith((lang||"en").slice(0,2)));
-    if(v) u.voice = v;
-    speechSynthesis.speak(u);
-  }catch(e){}
+    const go=()=>{ const u=new SpeechSynthesisUtterance(text); u.lang=lang||"en-US"; u.rate=0.9; u.volume=1; const v=pickVoice(lang); if(v) u.voice=v;
+      let started=false; u.onstart=()=>{ started=true; }; u.onerror=(e)=>{ if(e.error!=="interrupted"&&e.error!=="canceled") toast("Read-aloud error: "+e.error); };
+      setTimeout(()=>{ if(!started && !speechSynthesis.speaking) toast("No voice played. Check your volume or silent switch, or open the page in Chrome."); },2500);
+      speechSynthesis.speak(u); try{ speechSynthesis.resume(); }catch(e){} };
+    if(speechSynthesis.speaking||speechSynthesis.pending){ speechSynthesis.cancel(); setTimeout(go,80); } else go();
+  }catch(e){ toast("Read-aloud failed on this device"); }
 }
 function spk(text, lang){ return `<button class="speak" title="Listen" onclick="event.stopPropagation();speak(${JSON.stringify(text)},'${lang||"en-US"}')">🔊</button>`; }
 
@@ -1001,7 +1006,7 @@ elpaRender();
 
 // ===== init =====
 setLane(S.lane); showView();
-if("speechSynthesis" in window){ speechSynthesis.onvoiceschanged = ()=>{}; }
+
 </script>
 </body>
 </html>
